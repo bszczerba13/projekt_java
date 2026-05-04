@@ -1,0 +1,77 @@
+package com.practicesoftwaretesting.pages;
+
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class LoginPage extends BasePage {
+    @FindBy(id = "email")
+    protected WebElement loginEmail;
+
+    @FindBy(id = "password")
+    protected WebElement loginPassword;
+
+    @FindBy(css = "[data-test='login-submit']")
+    protected WebElement loginButton;
+
+    @FindBy(css = "[data-test='register-link']")
+    protected WebElement registerAccountLink;
+
+    @FindBy(xpath = "//h3[text()='Login']")
+    protected WebElement loginPageTitle;
+
+    @FindBy(css = "[data-test='login-error']")
+    protected WebElement invalidLoginDataMessage;
+
+    @FindBy(xpath = "//div[contains(text(),'Account locked')]")
+    protected WebElement lockedAccountMessage;
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void enterEmail(String email){
+        enterText(loginEmail, email);
+    }
+
+    public void enterPassword(String password){
+        enterText(loginPassword, password);
+    }
+
+    public void clickLoginButton(){
+        click(loginButton);
+    }
+
+    public void clickRegisterLink(){
+        click(registerAccountLink);
+        //return new RegistrationPage(driver)
+    }
+
+    public boolean isPageTitleVisible(){
+        return isDisplayed(loginPageTitle);
+    }
+
+    public String getInvalidLoginError(){
+        return getText(invalidLoginDataMessage);
+    }
+
+    public boolean isAccountLocked(){
+        try{
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            shortWait.until(ExpectedConditions.visibilityOf(lockedAccountMessage));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    @Override
+    protected void verifyPage(){
+        waitForVisibility(loginEmail);
+    }
+}

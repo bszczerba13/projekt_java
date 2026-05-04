@@ -1,4 +1,4 @@
-package com.practicesoftwaretesting.utils;
+package com.practicesoftwaretesting.base;
 
 import com.practicesoftwaretesting.pages.HomePage;
 import org.openqa.selenium.WebDriver;

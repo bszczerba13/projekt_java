@@ -6,6 +6,7 @@
     <test name="Automation Tests">
         <classes>
             <class name="com.practicesoftwaretesting.tests.SortingTest"/>
+            <class name="com.practicesoftwaretesting.tests.LoginTest"/>
         </classes>
     </test>
 </suite>

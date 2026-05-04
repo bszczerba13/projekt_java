@@ -1,6 +1,6 @@
 package com.practicesoftwaretesting.tests;
 
-import com.practicesoftwaretesting.utils.BaseTest;
+import com.practicesoftwaretesting.base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

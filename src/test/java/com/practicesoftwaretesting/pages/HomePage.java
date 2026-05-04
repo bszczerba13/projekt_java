@@ -34,9 +34,9 @@ public class HomePage extends BasePage{
         super(driver);
     }
 
-    public void clickSignIn(){
+    public LoginPage clickSignIn(){
         click(signInLink);
-        //return new LoginPage(driver);
+        return new LoginPage(driver);
     }
 
     public List<Double> getProductPrices(){
