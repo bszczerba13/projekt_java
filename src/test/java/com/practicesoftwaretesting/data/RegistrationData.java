@@ -5,7 +5,7 @@ public class RegistrationData {
     public String lastName;
     public String dateOfBirth;
     public String postalCode;
-    public int houseNumber;
+    public String houseNumber;
     public String phoneNumber;
     public String email;
     public String password;

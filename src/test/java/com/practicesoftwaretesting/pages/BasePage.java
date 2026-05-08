@@ -86,4 +86,8 @@ public class BasePage {
         int index = random.nextInt(20) + 1;
         select.selectByIndex(index);
     }
+
+    protected String getValue(WebElement element){
+        return waitForVisibility(element).getAttribute("value");
+    }
 }

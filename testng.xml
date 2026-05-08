@@ -8,6 +8,7 @@
             <class name="com.practicesoftwaretesting.tests.SortingTest"/>
             <class name="com.practicesoftwaretesting.tests.LoginTest"/>
             <class name="com.practicesoftwaretesting.tests.FilteringTest"/>
+            <class name="com.practicesoftwaretesting.tests.RegistrationTest"/>
         </classes>
     </test>
 </suite>

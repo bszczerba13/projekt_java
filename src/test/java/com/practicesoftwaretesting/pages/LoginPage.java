@@ -47,9 +47,9 @@ public class LoginPage extends BasePage {
         click(loginButton);
     }
 
-    public void clickRegisterLink(){
+    public RegistrationPage clickRegisterLink(){
         click(registerAccountLink);
-        //return new RegistrationPage(driver)
+        return new RegistrationPage(driver);
     }
 
     public boolean isPageTitleVisible(){
