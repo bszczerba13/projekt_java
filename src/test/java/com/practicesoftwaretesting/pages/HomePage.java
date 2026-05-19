@@ -73,14 +73,13 @@ public class HomePage extends BasePage{
         waitForPresence(filteringCompleted);
     }
 
-    public void openFirstAvailableProduct() {
+    public ProductPage openFirstAvailableProduct() {
         waitForVisibility(productCards);
         for (WebElement product : productCards) {
             List<WebElement> outOfStock = product.findElements(outOfStockProduct);
             if (outOfStock.isEmpty()) {
                 click(product);
-                //return ProductPage
-                return;
+                return new ProductPage(driver);
             }
         }
         throw new RuntimeException("No available products found");

@@ -11,25 +11,25 @@ import java.time.Duration;
 
 public class LoginPage extends BasePage {
     @FindBy(id = "email")
-    protected WebElement loginEmail;
+    private WebElement loginEmail;
 
     @FindBy(id = "password")
-    protected WebElement loginPassword;
+    private WebElement loginPassword;
 
     @FindBy(css = "[data-test='login-submit']")
-    protected WebElement loginButton;
+    private WebElement loginButton;
 
     @FindBy(css = "[data-test='register-link']")
-    protected WebElement registerAccountLink;
+    private WebElement registerAccountLink;
 
     @FindBy(xpath = "//h3[text()='Login']")
-    protected WebElement loginPageTitle;
+    private WebElement loginPageTitle;
 
     @FindBy(css = "[data-test='login-error']")
-    protected WebElement invalidLoginDataMessage;
+    private WebElement invalidLoginDataMessage;
 
     @FindBy(xpath = "//div[contains(text(),'Account locked')]")
-    protected WebElement lockedAccountMessage;
+    private WebElement lockedAccountMessage;
 
     public LoginPage(WebDriver driver) {
         super(driver);

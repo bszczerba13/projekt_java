@@ -9,6 +9,7 @@
             <class name="com.practicesoftwaretesting.tests.LoginTest"/>
             <class name="com.practicesoftwaretesting.tests.FilteringTest"/>
             <class name="com.practicesoftwaretesting.tests.RegistrationTest"/>
+            <class name="com.practicesoftwaretesting.tests.CartTest"/>
         </classes>
     </test>
 </suite>

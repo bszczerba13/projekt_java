@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class AccountPage extends BasePage{
     @FindBy(css = "[data-test='page-title']")
-    protected WebElement pageTitle;
+    private WebElement pageTitle;
 
     public AccountPage(WebDriver driver){
         super(driver);
