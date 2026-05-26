@@ -9,15 +9,19 @@ import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import static com.practicesoftwaretesting.utils.Constants.DEFAULT_TIMEOUT;
+import static com.practicesoftwaretesting.utils.Constants.QUICK_TIMEOUT;
 
 public class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected WebDriverWait quickWait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
+        this.quickWait = new WebDriverWait(driver, Duration.ofSeconds(QUICK_TIMEOUT));
         PageFactory.initElements(driver, this);
         verifyPage();
     }
@@ -28,6 +32,10 @@ public class BasePage {
 
     protected WebElement waitForVisibility(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected WebElement quickWaitForVisibility(WebElement element) {
+        return quickWait.until(ExpectedConditions.visibilityOf(element));
     }
 
     protected List<WebElement> waitForVisibility(List<WebElement> elements) {

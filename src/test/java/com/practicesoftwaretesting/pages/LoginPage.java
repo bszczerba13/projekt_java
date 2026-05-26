@@ -62,8 +62,7 @@ public class LoginPage extends BasePage {
 
     public boolean isAccountLocked(){
         try{
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-            shortWait.until(ExpectedConditions.visibilityOf(lockedAccountMessage));
+            quickWaitForVisibility(lockedAccountMessage);
             return true;
         } catch (TimeoutException e) {
             return false;

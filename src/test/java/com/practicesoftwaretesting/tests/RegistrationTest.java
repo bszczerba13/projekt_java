@@ -8,6 +8,7 @@ import com.practicesoftwaretesting.pages.RegistrationPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static com.practicesoftwaretesting.utils.Constants.MISSING_EMAIL_MESSAGE;
 
 public class RegistrationTest extends BaseTest {
     private LoginPage loginPage;
@@ -67,6 +68,6 @@ public class RegistrationTest extends BaseTest {
             registrationPage.enterState(data.state);
         }
         registrationPage.clickRegisterButton();
-        Assert.assertEquals(registrationPage.getMissingEmailMessage(), "Email is required");
+        Assert.assertEquals(registrationPage.getMissingEmailMessage(), MISSING_EMAIL_MESSAGE);
     }
 }

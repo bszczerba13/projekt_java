@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import static com.practicesoftwaretesting.utils.Constants.SORT_PRICE_ASC;
+import static com.practicesoftwaretesting.utils.Constants.SORT_PRICE_DESC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +57,11 @@ public class HomePage extends BasePage{
     }
 
     public void sortPriceLowToHigh(){
-        sortBy("price,asc");
+        sortBy(SORT_PRICE_ASC);
     }
 
     public void sortPriceHighToLow(){
-        sortBy("price,desc");
+        sortBy(SORT_PRICE_DESC);
     }
 
     public List<String> getProductTitles(){

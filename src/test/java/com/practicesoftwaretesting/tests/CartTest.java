@@ -6,6 +6,7 @@ import com.practicesoftwaretesting.pages.ProductPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static com.practicesoftwaretesting.utils.Constants.EMPTY_CART_MESSAGE;
 
 public class CartTest extends BaseTest {
 
@@ -36,6 +37,6 @@ public class CartTest extends BaseTest {
         productPage.addProductToCart();
         cartPage = productPage.goToCart();
         cartPage.removeProduct();
-        Assert.assertTrue(cartPage.getEmptyCartInfo().contains("The cart is empty"));
+        Assert.assertTrue(cartPage.getEmptyCartInfo().contains(EMPTY_CART_MESSAGE));
     }
 }

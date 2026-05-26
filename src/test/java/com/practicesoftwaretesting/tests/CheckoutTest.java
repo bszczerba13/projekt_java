@@ -9,6 +9,9 @@ import com.practicesoftwaretesting.pages.ProductPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static com.practicesoftwaretesting.utils.Constants.CREDIT_CARD;
+import static com.practicesoftwaretesting.utils.Constants.PAYMENT_SUCCESS_MESSAGE;
+import static com.practicesoftwaretesting.utils.Constants.ORDER_CONFIRMATION_MESSAGE;
 
 public class CheckoutTest extends BaseTest {
 
@@ -50,16 +53,16 @@ public class CheckoutTest extends BaseTest {
             checkoutPage.enterState(data.state);
         }
         checkoutPage.goToPaymentStep();
-        checkoutPage.choosePaymentMethod("credit-card");
+        checkoutPage.choosePaymentMethod(CREDIT_CARD);
         checkoutPage.enterCardNumber(data.creditCardNumber);
         checkoutPage.enterCardExpirationDate(data.expirationDate);
         checkoutPage.enterCardCvv(data.cvv);
         checkoutPage.enterCardHolderName(data.firstName + " " + data.lastName);
         checkoutPage.clickConfirmButton();
         String paymentSuccessMessage = checkoutPage.getPaymentSuccessMessage().toLowerCase();
-        Assert.assertTrue(paymentSuccessMessage.contains("success"));
+        Assert.assertTrue(paymentSuccessMessage.contains(PAYMENT_SUCCESS_MESSAGE));
         checkoutPage.clickConfirmButton();
         String orderConfirmationMessage = checkoutPage.getOrderConfirmationMessage().toLowerCase();
-        Assert.assertTrue(orderConfirmationMessage.contains("your invoice number"));
+        Assert.assertTrue(orderConfirmationMessage.contains(ORDER_CONFIRMATION_MESSAGE));
     }
 }

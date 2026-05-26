@@ -10,6 +10,11 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static com.practicesoftwaretesting.utils.Constants.ADMIN_ROLE;
+import static com.practicesoftwaretesting.utils.Constants.USER_ROLE;
+import static com.practicesoftwaretesting.utils.Constants.ADMIN_PAGE_TITLE;
+import static com.practicesoftwaretesting.utils.Constants.USER_PAGE_TITLE;
+import static com.practicesoftwaretesting.utils.Constants.INVALID_LOGIN_MESSAGE;
 
 public class LoginTest extends BaseTest {
 
@@ -30,10 +35,10 @@ public class LoginTest extends BaseTest {
         }
         AccountPage accountPage = new AccountPage(driver);
         String pageTitle = accountPage.getPageTitle();
-        if (role.equals("admin")){
-            Assert.assertEquals(pageTitle, "Sales over the years");
-        } else if (role.equals("user")) {
-            Assert.assertEquals(pageTitle, "My account");
+        if (role.equals(ADMIN_ROLE)){
+            Assert.assertEquals(pageTitle, ADMIN_PAGE_TITLE);
+        } else if (role.equals(USER_ROLE)) {
+            Assert.assertEquals(pageTitle, USER_PAGE_TITLE);
         } else {
             Assert.fail("Unexpected role :" + role);
         }
@@ -46,6 +51,6 @@ public class LoginTest extends BaseTest {
         loginPage.enterPassword(data.password);
         loginPage.clickLoginButton();
         String error_message = loginPage.getInvalidLoginError();
-        Assert.assertTrue(error_message.contains("Invalid email or password"));
+        Assert.assertTrue(error_message.contains(INVALID_LOGIN_MESSAGE));
     }
 }
