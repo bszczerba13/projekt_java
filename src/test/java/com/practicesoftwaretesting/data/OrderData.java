@@ -5,7 +5,7 @@ public class OrderData {
     public String lastName;
     public String email;
     public String postalCode;
-    public int houseNumber;
+    public String houseNumber;
     public String creditCardNumber;
     public String expirationDate;
     public String cvv;

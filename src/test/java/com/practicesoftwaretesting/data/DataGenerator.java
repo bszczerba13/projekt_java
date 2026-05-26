@@ -3,10 +3,10 @@ package com.practicesoftwaretesting.data;
 import com.github.javafaker.Faker;
 
 import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 public class DataGenerator {
     private final Faker faker = new Faker();
-    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public InvalidLoginData invalidLoginDataGenerator(){
         InvalidLoginData data = new InvalidLoginData();
@@ -16,6 +16,7 @@ public class DataGenerator {
     }
 
     public RegistrationData registrationData(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         RegistrationData data = new RegistrationData();
         data.firstName = faker.address().firstName();
         data.lastName = faker.address().lastName();
@@ -25,6 +26,23 @@ public class DataGenerator {
         data.phoneNumber = faker.numerify("#########");
         data.email = faker.internet().emailAddress();
         data.password = faker.internet().password(10,11,true,true,true);
+        data.street = faker.address().streetName();
+        data.city = faker.address().cityName();
+        data.state = faker.address().state();
+        return data;
+    }
+
+    public OrderData orderData(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+        OrderData data = new OrderData();
+        data.firstName = faker.address().firstName();
+        data.lastName = faker.address().lastName();
+        data.email = faker.internet().emailAddress();
+        data.postalCode = faker.address().zipCode();
+        data.houseNumber = String.valueOf(faker.number().numberBetween(1,100));
+        data.creditCardNumber = faker.numerify("####-####-####-####");
+        data.expirationDate = sdf.format(faker.date().future(1000, TimeUnit.DAYS));
+        data.cvv = faker.numerify("###");
         data.street = faker.address().streetName();
         data.city = faker.address().cityName();
         data.state = faker.address().state();

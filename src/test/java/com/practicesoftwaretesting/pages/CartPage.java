@@ -41,8 +41,9 @@ public class CartPage extends BasePage{
         return getText(emptyCartInfo);
     }
 
-    public void goToCheckout(){
+    public CheckoutPage goToCheckout(){
         click(proceedToCheckoutButtonCartStep);
+        return new CheckoutPage(driver);
     }
 
     @Override
