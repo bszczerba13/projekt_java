@@ -22,7 +22,7 @@ public class CheckoutTest extends BaseTest {
     public void setCheckoutPage(){
         ProductPage productPage = homePage.openFirstAvailableProduct();
         productPage.addProductToCart();
-        CartPage cartPage = productPage.goToCart();
+        CartPage cartPage = productPage.header.goToCart();
         checkoutPage = cartPage.goToCheckout();
         data = new DataGenerator().orderData();
     }

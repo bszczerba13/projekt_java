@@ -34,24 +34,24 @@ public class BasePage {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    protected WebElement quickWaitForVisibility(WebElement element) {
-        return quickWait.until(ExpectedConditions.visibilityOf(element));
+    protected void quickWaitForVisibility(WebElement element) {
+        quickWait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    protected List<WebElement> waitForVisibility(List<WebElement> elements) {
-        return wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+    protected void waitForVisibility(List<WebElement> elements) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     protected WebElement waitForClickable(WebElement element) {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    protected WebElement waitForPresence(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    protected void waitForPresence(By locator) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    protected boolean waitForInvisibility(WebElement element) {
-        return wait.until(ExpectedConditions.invisibilityOf(element));
+    protected void waitForInvisibility(WebElement element) {
+        wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
     protected void click(WebElement element) {

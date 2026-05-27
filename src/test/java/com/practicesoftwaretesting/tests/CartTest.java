@@ -21,11 +21,11 @@ public class CartTest extends BaseTest {
     @Test
     public void addProductToCartTest(){
         productPage.addProductToCart();
-        Integer quantity = productPage.getCartQuantity();
+        Integer quantity = productPage.header.getCartQuantity();
         String productName = productPage.getProductName();
         Double productPrice = productPage.getProductPrice();
         Assert.assertEquals(quantity, 1);
-        cartPage = productPage.goToCart();
+        cartPage = productPage.header.goToCart();
         String cartProductName = cartPage.getCartProductName();
         Double cartTotalPrice = cartPage.getCartTotalPrice();
         Assert.assertEquals(cartProductName, productName);
@@ -35,7 +35,7 @@ public class CartTest extends BaseTest {
     @Test
     public void removeProductFromCartTest(){
         productPage.addProductToCart();
-        cartPage = productPage.goToCart();
+        cartPage = productPage.header.goToCart();
         cartPage.removeProduct();
         Assert.assertTrue(cartPage.getEmptyCartInfo().contains(EMPTY_CART_MESSAGE));
     }

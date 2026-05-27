@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
 
     @BeforeMethod
     public void setLoginPage() {
-        loginPage = homePage.clickSignIn();
+        loginPage = homePage.header.clickSignIn();
     }
 
     @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class)

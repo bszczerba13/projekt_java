@@ -1,5 +1,6 @@
 package com.practicesoftwaretesting.pages;
 
+import com.practicesoftwaretesting.pages.components.HeaderComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,20 +10,17 @@ public class ProductPage extends BasePage{
     @FindBy (css = "[data-test='add-to-cart']")
     private WebElement addToCartButton;
 
-    @FindBy (css = "[data-test='nav-cart']")
-    private WebElement cartButton;
-
-    @FindBy (css = "[data-test='cart-quantity']")
-    private WebElement cartQuantity;
-
     @FindBy (css = "[data-test='unit-price']")
     private WebElement productPrice;
 
     @FindBy (css = "[data-test='product-name']")
     private WebElement productName;
 
+    public HeaderComponent header;
+
     public ProductPage(WebDriver driver) {
         super(driver);
+        header = new HeaderComponent(driver);
     }
 
     public void addProductToCart(){
@@ -35,15 +33,6 @@ public class ProductPage extends BasePage{
 
     public String getProductName(){
         return getText(productName);
-    }
-
-    public Integer getCartQuantity(){
-        return Integer.parseInt(getText(cartQuantity));
-    }
-
-    public CartPage goToCart(){
-        click(cartButton);
-        return new CartPage(driver);
     }
 
     @Override

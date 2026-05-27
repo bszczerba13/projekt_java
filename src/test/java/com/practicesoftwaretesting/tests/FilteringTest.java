@@ -11,7 +11,7 @@ public class FilteringTest extends BaseTest {
     @Test
     public void filteringByCategoryTest(){
         String category = "Hammer";
-        homePage.filterByCategory(category);
+        homePage.filter.filterByCategory(category);
         List<String> productTitles = homePage.getProductTitles();
         for (String title : productTitles){
             Assert.assertTrue(title.contains(category.toLowerCase()));

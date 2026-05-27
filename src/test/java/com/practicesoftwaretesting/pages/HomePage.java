@@ -6,13 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import static com.practicesoftwaretesting.utils.Constants.SORT_PRICE_ASC;
 import static com.practicesoftwaretesting.utils.Constants.SORT_PRICE_DESC;
+import com.practicesoftwaretesting.pages.components.FilterComponent;
+import com.practicesoftwaretesting.pages.components.HeaderComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage extends BasePage{
-    @FindBy (css = "[data-test='nav-sign-in']")
-    private WebElement signInLink;
 
     @FindBy (css = "[data-test='product-price']")
     private List<WebElement> productPrice;
@@ -30,15 +30,13 @@ public class HomePage extends BasePage{
 
     private By sortingCompleted = By.cssSelector("[data-test='sorting_completed']");
 
-    private By filteringCompleted = By.cssSelector("[data-test='filter_completed']");
+    public FilterComponent filter;
+    public HeaderComponent header;
 
     public HomePage(WebDriver driver) {
         super(driver);
-    }
-
-    public LoginPage clickSignIn(){
-        click(signInLink);
-        return new LoginPage(driver);
+        filter = new FilterComponent(driver);
+        header = new HeaderComponent(driver);
     }
 
     public List<Double> getProductPrices(){
@@ -67,12 +65,6 @@ public class HomePage extends BasePage{
     public List<String> getProductTitles(){
         List<String> elements = getTexts(productTitle);
         return elements.stream().map(String::toLowerCase).toList();
-    }
-
-    public void filterByCategory(String category){
-        WebElement locator = driver.findElement(By.xpath("//label[contains(text(), '" + category + "')]"));
-        click(locator);
-        waitForPresence(filteringCompleted);
     }
 
     public ProductPage openFirstAvailableProduct() {

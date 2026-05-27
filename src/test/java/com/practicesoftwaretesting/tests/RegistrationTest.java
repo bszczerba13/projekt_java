@@ -17,7 +17,7 @@ public class RegistrationTest extends BaseTest {
 
     @BeforeMethod
     public void setRegistrationPage(){
-        loginPage = homePage.clickSignIn();
+        loginPage = homePage.header.clickSignIn();
         registrationPage = loginPage.clickRegisterLink();
         data = new DataGenerator().registrationData();
     }
