@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FilteringTest extends BaseTest {
 
-    @Test
+    @Test(description = "Verify products can be filtered by category")
     public void filteringByCategoryTest(){
         String category = "Hammer";
         homePage.filter.filterByCategory(category);

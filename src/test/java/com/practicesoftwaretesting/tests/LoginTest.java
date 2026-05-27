@@ -25,7 +25,9 @@ public class LoginTest extends BaseTest {
         loginPage = homePage.header.clickSignIn();
     }
 
-    @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class)
+    @Test(dataProvider = "loginData",
+            dataProviderClass = LoginDataProvider.class,
+            description = "Verify users can login with valid credentials")
     public void loginTest(String email, String password, String role){
         loginPage.enterEmail(email);
         loginPage.enterPassword(password);
@@ -44,7 +46,7 @@ public class LoginTest extends BaseTest {
         }
     }
 
-    @Test
+    @Test(description = "Verify error message for invalid login credentials")
     public void invalidLoginDataTest(){
         InvalidLoginData data = new DataGenerator().invalidLoginDataGenerator();
         loginPage.enterEmail(data.email);

@@ -5,9 +5,17 @@ import com.github.javafaker.Faker;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Generates random test data using Faker library.
+ */
 public class DataGenerator {
     private final Faker faker = new Faker();
 
+    /**
+     * Generates invalid login data.
+     *
+     * @return InvalidLoginData object
+     */
     public InvalidLoginData invalidLoginDataGenerator(){
         InvalidLoginData data = new InvalidLoginData();
         data.email = faker.internet().emailAddress();
@@ -15,6 +23,11 @@ public class DataGenerator {
         return data;
     }
 
+    /**
+     * Generates valid registration data.
+     *
+     * @return RegistrationData object
+     */
     public RegistrationData registrationData(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         RegistrationData data = new RegistrationData();
@@ -32,6 +45,11 @@ public class DataGenerator {
         return data;
     }
 
+    /**
+     * Generates random checkout data.
+     *
+     * @return OrderData object
+     */
     public OrderData orderData(){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
         OrderData data = new OrderData();

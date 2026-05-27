@@ -18,7 +18,7 @@ public class CartTest extends BaseTest {
         productPage = homePage.openFirstAvailableProduct();
     }
 
-    @Test
+    @Test(description = "Verify user can add product to cart")
     public void addProductToCartTest(){
         productPage.addProductToCart();
         Integer quantity = productPage.header.getCartQuantity();
@@ -32,7 +32,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(productPrice * quantity, cartTotalPrice);
     }
 
-    @Test
+    @Test(description = "Verify user can remove product from cart")
     public void removeProductFromCartTest(){
         productPage.addProductToCart();
         cartPage = productPage.header.goToCart();

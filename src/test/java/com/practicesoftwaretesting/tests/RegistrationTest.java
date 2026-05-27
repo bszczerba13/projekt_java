@@ -22,7 +22,7 @@ public class RegistrationTest extends BaseTest {
         data = new DataGenerator().registrationData();
     }
 
-    @Test
+    @Test(description = "Verify user can register new account")
     public void registrationTest(){
         registrationPage.enterFirstName(data.firstName);
         registrationPage.enterLastName(data.lastName);
@@ -47,7 +47,7 @@ public class RegistrationTest extends BaseTest {
         Assert.assertTrue(loginPage.isPageTitleVisible());
     }
 
-    @Test
+    @Test(description = "Verify validation message when email is missing")
     public void registrationTestMissingEmail(){
         registrationPage.enterFirstName(data.firstName);
         registrationPage.enterLastName(data.lastName);

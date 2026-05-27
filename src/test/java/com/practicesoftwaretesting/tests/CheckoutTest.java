@@ -27,7 +27,7 @@ public class CheckoutTest extends BaseTest {
         data = new DataGenerator().orderData();
     }
 
-    @Test
+    @Test(description = "Verify guest user can complete checkout process")
     public void checkoutTest(){
         checkoutPage.goToGuestTab();
         checkoutPage.enterGuestEmail(data.email);

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SortingTest extends BaseTest {
 
-    @Test
+    @Test(description = "Verify products can be sorted by price ascending")
     public void sortPriceLowToHighTest(){
         homePage.sortPriceLowToHigh();
         List<Double> prices = homePage.getProductPrices();
@@ -17,7 +17,7 @@ public class SortingTest extends BaseTest {
         Assert.assertEquals(prices,sortedPrices);
     }
 
-    @Test
+    @Test(description = "Verify products can be sorted by price descending")
     public void sortPriceHighToLowTest(){
         homePage.sortPriceHighToLow();
         List<Double> prices = homePage.getProductPrices();

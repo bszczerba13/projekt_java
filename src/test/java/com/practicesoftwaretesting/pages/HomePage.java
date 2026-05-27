@@ -12,6 +12,9 @@ import com.practicesoftwaretesting.pages.components.HeaderComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Home page containing products, sorting and filtering actions.
+ */
 public class HomePage extends BasePage{
 
     @FindBy (css = "[data-test='product-price']")
@@ -39,6 +42,11 @@ public class HomePage extends BasePage{
         header = new HeaderComponent(driver);
     }
 
+    /**
+     * Returns list of product prices converted to Double values.
+     *
+     * @return list of prices
+     */
     public List<Double> getProductPrices(){
         List<Double> prices = new ArrayList<>();
         List<String> texts = getTexts(productPrice);
@@ -67,6 +75,12 @@ public class HomePage extends BasePage{
         return elements.stream().map(String::toLowerCase).toList();
     }
 
+    /**
+     * Opens first product that is not marked as out of stock.
+     *
+     * @return ProductPage
+     * @throws RuntimeException when no products are available
+     */
     public ProductPage openFirstAvailableProduct() {
         waitForVisibility(productCards);
         for (WebElement product : productCards) {

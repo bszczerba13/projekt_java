@@ -1,5 +1,8 @@
 package com.practicesoftwaretesting.utils;
 
+/**
+ * Utility class containing project constants.
+ */
 public final class Constants {
 
     private Constants(){

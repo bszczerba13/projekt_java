@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Header component with navigation actions and cart operations.
+ */
 public class HeaderComponent extends BasePage {
 
     @FindBy(css = "[data-test='nav-sign-in']")

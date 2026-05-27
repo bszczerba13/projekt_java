@@ -12,6 +12,10 @@ import java.util.Random;
 import static com.practicesoftwaretesting.utils.Constants.DEFAULT_TIMEOUT;
 import static com.practicesoftwaretesting.utils.Constants.QUICK_TIMEOUT;
 
+/**
+ * Base class for all page objects.
+ * Contains shared Selenium helper methods and explicit waits.
+ */
 public class BasePage {
 
     protected WebDriver driver;
@@ -26,10 +30,20 @@ public class BasePage {
         verifyPage();
     }
 
+    /**
+     * Verifies that page is loaded correctly.
+     * Override in child classes and provide page specific validation.
+     */
     protected void verifyPage(){
-        //override in child classes
+
     }
 
+    /**
+     * Waits until element becomes visible.
+     *
+     * @param element target element
+     * @return visible WebElement
+     */
     protected WebElement waitForVisibility(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
@@ -46,6 +60,12 @@ public class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    /**
+     * Waits until element exists in DOM.
+     * Useful for elements that may not be visible.
+     *
+     * @param locator element locator
+     */
     protected void waitForPresence(By locator) {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
@@ -88,6 +108,11 @@ public class BasePage {
         select.selectByValue(value);
     }
 
+    /**
+     * Selects random option from dropdown list.
+     *
+     * @param element select element
+     */
     protected void selectRandomOption(WebElement element) {
         Select select = new Select(waitForVisibility(element));
         Random random = new Random();
@@ -95,6 +120,12 @@ public class BasePage {
         select.selectByIndex(index);
     }
 
+    /**
+     * Returns value attribute from input element.
+     *
+     * @param element input element
+     * @return input value
+     */
     protected String getValue(WebElement element){
         return waitForVisibility(element).getAttribute("value");
     }
