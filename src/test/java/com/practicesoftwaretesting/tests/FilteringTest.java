@@ -1,14 +1,19 @@
 package com.practicesoftwaretesting.tests;
 
 import com.practicesoftwaretesting.base.BaseTest;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+@Epic("Catalog")
+@Feature("Products filtering")
 public class FilteringTest extends BaseTest {
 
-    @Test(description = "Verify products can be filtered by category")
+    @Test
+    @Severity(SeverityLevel.MINOR)
+    @Description("Verify products can be filtered by category")
     public void filteringByCategoryTest(){
         String category = "Hammer";
         homePage.filter.filterByCategory(category);

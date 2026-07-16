@@ -3,11 +3,14 @@ package com.practicesoftwaretesting.tests;
 import com.practicesoftwaretesting.base.BaseTest;
 import com.practicesoftwaretesting.pages.CartPage;
 import com.practicesoftwaretesting.pages.ProductPage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static com.practicesoftwaretesting.utils.Constants.EMPTY_CART_MESSAGE;
 
+@Epic("Shopping cart")
+@Feature("Cart management")
 public class CartTest extends BaseTest {
 
     private ProductPage productPage;
@@ -18,7 +21,9 @@ public class CartTest extends BaseTest {
         productPage = homePage.openFirstAvailableProduct();
     }
 
-    @Test(description = "Verify user can add product to cart")
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify user can add product to cart")
     public void addProductToCartTest(){
         productPage.addProductToCart();
         Integer quantity = productPage.header.getCartQuantity();
@@ -32,7 +37,9 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(productPrice * quantity, cartTotalPrice);
     }
 
-    @Test(description = "Verify user can remove product from cart")
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify user can remove product from cart")
     public void removeProductFromCartTest(){
         productPage.addProductToCart();
         cartPage = productPage.header.goToCart();

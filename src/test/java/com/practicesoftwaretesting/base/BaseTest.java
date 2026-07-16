@@ -1,7 +1,9 @@
 package com.practicesoftwaretesting.base;
 
 import com.practicesoftwaretesting.pages.HomePage;
+import com.practicesoftwaretesting.utils.allure.AllureAttachments;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -21,7 +23,11 @@ public class BaseTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(){
+    public void tearDown(ITestResult result){
+        if (result.getStatus() == ITestResult.FAILURE) {
+            AllureAttachments.attachScreenshot(driver);
+            AllureAttachments.attachCurrentUrl(driver);
+        }
         DriverFactory.quitDriver();
     }
 }

@@ -6,6 +6,7 @@ import com.practicesoftwaretesting.data.OrderData;
 import com.practicesoftwaretesting.pages.CartPage;
 import com.practicesoftwaretesting.pages.CheckoutPage;
 import com.practicesoftwaretesting.pages.ProductPage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,6 +14,8 @@ import static com.practicesoftwaretesting.utils.Constants.CREDIT_CARD;
 import static com.practicesoftwaretesting.utils.Constants.PAYMENT_SUCCESS_MESSAGE;
 import static com.practicesoftwaretesting.utils.Constants.ORDER_CONFIRMATION_MESSAGE;
 
+@Epic("Checkout")
+@Feature("Guest checkout")
 public class CheckoutTest extends BaseTest {
 
     private CheckoutPage checkoutPage;
@@ -27,7 +30,9 @@ public class CheckoutTest extends BaseTest {
         data = new DataGenerator().orderData();
     }
 
-    @Test(description = "Verify guest user can complete checkout process")
+    @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Verify guest user can complete checkout process")
     public void checkoutTest(){
         checkoutPage.goToGuestTab();
         checkoutPage.enterGuestEmail(data.email);

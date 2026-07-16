@@ -1,6 +1,7 @@
 package com.practicesoftwaretesting.pages.components;
 
 import com.practicesoftwaretesting.pages.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class FilterComponent extends BasePage {
      *
      * @param category category name
      */
+    @Step("Filter products by category: {category}")
     public void filterByCategory(String category){
         WebElement locator = driver.findElement(By.xpath("//label[contains(text(), '" + category + "')]"));
         click(locator);

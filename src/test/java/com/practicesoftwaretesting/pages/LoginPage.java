@@ -1,5 +1,6 @@
 package com.practicesoftwaretesting.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,18 +32,22 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("Enter email: {email}")
     public void enterEmail(String email){
         enterText(loginEmail, email);
     }
 
+    @Step("Enter password")
     public void enterPassword(String password){
         enterText(loginPassword, password);
     }
 
+    @Step("Click login button")
     public void clickLoginButton(){
         click(loginButton);
     }
 
+    @Step("Go to registration page")
     public RegistrationPage clickRegisterLink(){
         click(registerAccountLink);
         return new RegistrationPage(driver);

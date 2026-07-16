@@ -1,4 +1,5 @@
 package com.practicesoftwaretesting.pages;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -82,18 +83,22 @@ public class CheckoutPage extends BasePage{
         click(guestTab);
     }
 
+    @Step("Enter email: {email}")
     public void enterGuestEmail(String email){
         enterText(emailInput, email);
     }
 
+    @Step("Enter first name: {firstName}")
     public void enterGuestFirstName(String firstName){
         enterText(firstNameInput, firstName);
     }
 
+    @Step("Enter last name: {lastName}")
     public void enterGuestLastName(String lastName){
         enterText(lastNameInput, lastName);
     }
 
+    @Step("Click continue as guest button")
     public void clickContinueAsGuestButton(){
         click(continueAsGuestButton);
     }
@@ -102,46 +107,57 @@ public class CheckoutPage extends BasePage{
         return getText(guestDataSummary);
     }
 
+    @Step("Go to billing address step")
     public void goToBillingAddressStep(){
         click(proceedToCheckoutButtonSignInStep);
     }
 
+    @Step("Select country")
     public void selectGuestCountry(){
         selectRandomOption(countrySelect);
     }
 
+    @Step("Enter postal code: {postalCode}")
     public void enterPostalCode(String postalCode){
         enterText(orderPostalCode, postalCode);
     }
 
+    @Step("Enter house number: {houseNumber}")
     public void enterHouseNumber(String houseNumber){
         enterText(orderHouseNumber, houseNumber);
     }
 
+    @Step("Go to payment step")
     public void goToPaymentStep(){
         click(proceedToCheckoutButtonBillingAddressStep);
     }
 
+    @Step("Choose payment method: {paymentMethod}")
     public void choosePaymentMethod(String paymentMethod){
         selectByValue(paymentMethodSelect, paymentMethod);
     }
 
+    @Step("Enter credit card number: {cardNumber}")
     public void enterCardNumber(String cardNumber){
         enterText(creditCardNumber, cardNumber);
     }
 
+    @Step("Enter credit card expiration date: {expirationDate}")
     public void enterCardExpirationDate(String expirationDate){
         enterText(cardExpirationDate, expirationDate);
     }
 
+    @Step("Enter credit card cvv: {cardCvv}")
     public void enterCardCvv(String cardCvv){
         enterText(cardCvvNumber, cardCvv);
     }
 
+    @Step("Enter credit card holder name: {holderName}")
     public void enterCardHolderName(String holderName){
         enterText(cardHolderName, holderName);
     }
 
+    @Step("Click confirm button")
     public void clickConfirmButton(){
         click(confirmButton);
     }

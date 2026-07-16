@@ -1,5 +1,6 @@
 package com.practicesoftwaretesting.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,6 +34,7 @@ public class CartPage extends BasePage{
         return Double.parseDouble(getText(cartTotalPrice).replace("$", "").trim());
     }
 
+    @Step("Remove product from shopping cart")
     public void removeProduct(){
         click(removeProductButton);
     }
@@ -41,6 +43,7 @@ public class CartPage extends BasePage{
         return getText(emptyCartInfo);
     }
 
+    @Step("Proceed to checkout")
     public CheckoutPage goToCheckout(){
         click(proceedToCheckoutButtonCartStep);
         return new CheckoutPage(driver);

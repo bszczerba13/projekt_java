@@ -1,5 +1,6 @@
 package com.practicesoftwaretesting.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,6 +58,7 @@ public class HomePage extends BasePage{
         return prices;
     }
 
+    @Step("Sort products by: {option}")
     public void sortBy(String option){
         selectByValue(sortList, option);
         waitForPresence(sortingCompleted);
@@ -81,6 +83,7 @@ public class HomePage extends BasePage{
      * @return ProductPage
      * @throws RuntimeException when no products are available
      */
+    @Step("Open first available product")
     public ProductPage openFirstAvailableProduct() {
         waitForVisibility(productCards);
         for (WebElement product : productCards) {

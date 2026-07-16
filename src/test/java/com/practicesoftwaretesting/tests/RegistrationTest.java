@@ -5,11 +5,14 @@ import com.practicesoftwaretesting.data.DataGenerator;
 import com.practicesoftwaretesting.data.RegistrationData;
 import com.practicesoftwaretesting.pages.LoginPage;
 import com.practicesoftwaretesting.pages.RegistrationPage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static com.practicesoftwaretesting.utils.Constants.MISSING_EMAIL_MESSAGE;
 
+@Epic("Authentication")
+@Feature("Registration")
 public class RegistrationTest extends BaseTest {
     private LoginPage loginPage;
     private RegistrationPage registrationPage;
@@ -22,7 +25,9 @@ public class RegistrationTest extends BaseTest {
         data = new DataGenerator().registrationData();
     }
 
-    @Test(description = "Verify user can register new account")
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify user can register new account")
     public void registrationTest(){
         registrationPage.enterFirstName(data.firstName);
         registrationPage.enterLastName(data.lastName);
@@ -47,7 +52,9 @@ public class RegistrationTest extends BaseTest {
         Assert.assertTrue(loginPage.isPageTitleVisible());
     }
 
-    @Test(description = "Verify validation message when email is missing")
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify validation message when email is missing")
     public void registrationTestMissingEmail(){
         registrationPage.enterFirstName(data.firstName);
         registrationPage.enterLastName(data.lastName);

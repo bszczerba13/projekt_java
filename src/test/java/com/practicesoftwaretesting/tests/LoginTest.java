@@ -6,6 +6,7 @@ import com.practicesoftwaretesting.pages.AccountPage;
 import com.practicesoftwaretesting.pages.LoginPage;
 import com.practicesoftwaretesting.base.BaseTest;
 import com.practicesoftwaretesting.data.LoginDataProvider;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -16,6 +17,8 @@ import static com.practicesoftwaretesting.utils.Constants.ADMIN_PAGE_TITLE;
 import static com.practicesoftwaretesting.utils.Constants.USER_PAGE_TITLE;
 import static com.practicesoftwaretesting.utils.Constants.INVALID_LOGIN_MESSAGE;
 
+@Epic("Authentication")
+@Feature("Login")
 public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
@@ -26,8 +29,9 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(dataProvider = "loginData",
-            dataProviderClass = LoginDataProvider.class,
-            description = "Verify users can login with valid credentials")
+            dataProviderClass = LoginDataProvider.class)
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify users can login with valid credentials")
     public void loginTest(String email, String password, String role){
         loginPage.enterEmail(email);
         loginPage.enterPassword(password);
@@ -46,7 +50,9 @@ public class LoginTest extends BaseTest {
         }
     }
 
-    @Test(description = "Verify error message for invalid login credentials")
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify error message for invalid login credentials")
     public void invalidLoginDataTest(){
         InvalidLoginData data = new DataGenerator().invalidLoginDataGenerator();
         loginPage.enterEmail(data.email);

@@ -1,5 +1,6 @@
 package com.practicesoftwaretesting.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,30 +56,37 @@ public class RegistrationPage extends BasePage{
         super(driver);
     }
 
+    @Step("Enter first name: {userFirstName}")
     public void enterFirstName(String userFirstName){
         enterText(firstName, userFirstName);
     }
 
+    @Step("Enter last name: {userLastName}")
     public void enterLastName(String userLastName){
         enterText(lastName, userLastName);
     }
 
+    @Step("Enter date of birth: {userDateOfBirth}")
     public void enterDateOfBirth(String userDateOfBirth){
         enterText(dateOfBirth, userDateOfBirth);
     }
 
+    @Step("Select country")
     public void selectCountry(){
         selectRandomOption(country);
     }
 
+    @Step("Enter postal code: {userPostalCode}")
     public void enterPostalCode(String userPostalCode){
         enterText(postalCode, userPostalCode);
     }
 
+    @Step("Enter house number: {userHouseNumber}")
     public void enterHouseNumber(String userHouseNumber){
         enterText(houseNumber, userHouseNumber);
     }
 
+    @Step("Enter street: {userStreet}")
     public void enterStreet(String userStreet){
         enterText(street, userStreet);
     }
@@ -87,6 +95,7 @@ public class RegistrationPage extends BasePage{
         return getValue(street);
     }
 
+    @Step("Enter city: {userCity}")
     public void enterCity(String userCity){
         enterText(city, userCity);
     }
@@ -95,6 +104,7 @@ public class RegistrationPage extends BasePage{
         return getValue(city);
     }
 
+    @Step("Enter state: {userState}")
     public void enterState(String userState){
         enterText(state, userState);
     }
@@ -103,18 +113,22 @@ public class RegistrationPage extends BasePage{
         return getValue(state);
     }
 
+    @Step("Enter phone: {userPhone}")
     public void enterPhone(String userPhone){
         enterText(phone, userPhone);
     }
 
+    @Step("Enter email: {userEmail}")
     public void enterEmail(String userEmail){
         enterText(email, userEmail);
     }
 
+    @Step("Enter password: {userPassword}")
     public void enterPassword(String userPassword){
         enterText(password, userPassword);
     }
 
+    @Step("Click register button")
     public void clickRegisterButton() {
         click(registerButton);
     }

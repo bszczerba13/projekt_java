@@ -3,6 +3,7 @@ package com.practicesoftwaretesting.pages.components;
 import com.practicesoftwaretesting.pages.BasePage;
 import com.practicesoftwaretesting.pages.CartPage;
 import com.practicesoftwaretesting.pages.LoginPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,7 @@ public class HeaderComponent extends BasePage {
     @FindBy (css = "[data-test='cart-quantity']")
     private WebElement cartQuantity;
 
+    @Step("Open login page")
     public LoginPage clickSignIn(){
         click(signInLink);
         return new LoginPage(driver);
@@ -30,6 +32,7 @@ public class HeaderComponent extends BasePage {
         return Integer.parseInt(getText(cartQuantity));
     }
 
+    @Step("Open shopping cart")
     public CartPage goToCart() {
         click(cartButton);
         return new CartPage(driver);
