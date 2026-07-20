@@ -12,7 +12,7 @@ Test automation framework for an e-commerce demo application built with Java, Se
 - Maven
 - PageFactory
 - Faker
-- Extent Reports
+- Allure Report
 - CSV DataProvider
 
 ---
@@ -63,18 +63,20 @@ Test automation framework for an e-commerce demo application built with Java, Se
 │       │           │   └── SortingTest.java
 │       │           │
 │       │           └── utils
+│       │               ├── allure
+│       │               │   ├── AllureAttachments.java
+│       │               │   └── AllureEnvironment.java
+│       │               │
 │       │               ├── Constants.java
-│       │               ├── CsvReader.java
-│       │               ├── ReportManager.java
-│       │               └── TestListener.java
+│       │               └── CsvReader.java
 │       │
 │       └── resources
 │           └── users.csv
 │
-├── reports
+├── allure-results
 ├── testng.xml
 ├── pom.xml
-└── README.MD
+└── README.md
 ```
 
 ---
@@ -102,7 +104,8 @@ Implemented automated UI tests for:
 - Data-driven testing with TestNG DataProvider and CSV
 - Shared project constants
 - Explicit waits with Selenium ExpectedConditions
-- HTML reporting with Extent Reports
+  Allure reporting with automatic diagnostic attachments
+  Automatic environment information for test execution
 
 ---
 
@@ -125,6 +128,12 @@ Run all tests:
 mvn test
 ```
 
+Generate and open the Allure report:
+
+```bash
+allure serve allure-results
+```
+
 ---
 
 ## Test Configuration
@@ -139,13 +148,20 @@ Framework supports browser and environment configuration through TestNG paramete
 
 ---
 
-## Report
+## Reporting
 
-After test execution report is generated automatically:
+The framework uses Allure Report to provide detailed test execution reports.
 
-```text
-reports/report.html
-```
+For failed tests, the report automatically includes:
+
+- Screenshot (PNG)
+- Current browser URL
+
+Additionally, each report contains environment information:
+
+- Browser
+- Java version
+- Operating System
 
 ---
 
