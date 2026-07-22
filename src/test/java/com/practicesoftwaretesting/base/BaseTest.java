@@ -22,6 +22,14 @@ public class BaseTest {
     public void setUp() {
         driver = DriverFactory.getDriver();
         driver.get(TestConfiguration.getBaseUrl());
+        System.out.println("========== PAGE TITLE ==========");
+        System.out.println(driver.getTitle());
+
+        System.out.println("========== CURRENT URL ==========");
+        System.out.println(driver.getCurrentUrl());
+
+        System.out.println("========== PAGE SOURCE ==========");
+        System.out.println(driver.getPageSource().substring(0, 500));
         homePage = new HomePage(driver);
     }
 
