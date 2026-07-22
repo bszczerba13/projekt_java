@@ -1,8 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="Practice Suite">
-    <parameter name="browser" value="chrome"/>
-    <parameter name="baseUrl" value="https://practicesoftwaretesting.com/"/>
     <test name="Automation Tests">
         <classes>
             <class name="com.practicesoftwaretesting.tests.SortingTest"/>
