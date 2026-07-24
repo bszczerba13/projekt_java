@@ -51,4 +51,17 @@ public final class TestConfiguration {
         );
     }
 
+    public static Environment getEnvironment() {
+        String environment = System.getProperty("environment", "local");
+
+        return switch (environment.toLowerCase()) {
+            case "docker" -> Environment.DOCKER;
+            case "ci" -> Environment.CI;
+            case "local" -> Environment.LOCAL;
+            default -> throw new IllegalArgumentException(
+                    "Unsupported environment: " + environment
+            );
+        };
+    }
+
 }
