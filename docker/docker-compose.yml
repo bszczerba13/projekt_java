@@ -28,3 +28,15 @@ services:
       - mariadb
 
     restart: unless-stopped
+
+  toolshop-ui:
+    image: testsmith/practice-software-testing-${SPRINT}-ui
+    container_name: toolshop-ui
+
+    ports:
+      - "4200:4200"
+
+    command: >
+      bash -c "ng serve --host 0.0.0.0 --port 4200"
+
+    restart: unless-stopped
