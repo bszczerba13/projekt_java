@@ -13,3 +13,18 @@ services:
       MYSQL_DATABASE: toolshop
 
     restart: unless-stopped
+
+  toolshop-api:
+    image: testsmith/practice-software-testing-${SPRINT}-api
+    container_name: toolshop-api
+
+    environment:
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+      DB_PORT: 3306
+      DB_HOST: mariadb
+      host: localhost
+
+    depends_on:
+      - mariadb
+
+    restart: unless-stopped
