@@ -14,7 +14,7 @@ services:
 
     restart: unless-stopped
 
-  toolshop-api:
+  laravel-api:
     image: testsmith/practice-software-testing-${SPRINT}-api
     container_name: toolshop-api
 
@@ -29,7 +29,7 @@ services:
 
     restart: unless-stopped
 
-  toolshop-ui:
+  angular-ui:
     image: testsmith/practice-software-testing-${SPRINT}-ui
     container_name: toolshop-ui
 
@@ -38,5 +38,17 @@ services:
 
     command: >
       bash -c "ng serve --host 0.0.0.0 --port 4200"
+
+    restart: unless-stopped
+
+  web:
+    image: testsmith/practice-software-testing-web
+    container_name: toolshop-web
+
+    ports:
+      - "8091:80"
+
+    depends_on:
+      - laravel-api
 
     restart: unless-stopped
