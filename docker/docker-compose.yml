@@ -1,3 +1,12 @@
+x-laravel-common: &laravel-common
+  image: testsmith/practice-software-testing-${SPRINT}-api
+
+  environment:
+    PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+    DB_PORT: 3306
+    DB_HOST: mariadb
+    host: localhost
+
 services:
   mariadb:
     image: yobasystems/alpine-mariadb:10.6.11
@@ -22,14 +31,9 @@ services:
       start_period: 10s
 
   db-init:
-    image: testsmith/practice-software-testing-${SPRINT}-api
-    container_name: toolshop-db-init
+    <<: *laravel-common
 
-    environment:
-      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
-      DB_PORT: 3306
-      DB_HOST: mariadb
-      host: localhost
+    container_name: toolshop-db-init
 
     depends_on:
       mariadb:
@@ -46,17 +50,13 @@ services:
     restart: "no"
 
   laravel-api:
-    image: testsmith/practice-software-testing-${SPRINT}-api
+    <<: *laravel-common
+
     container_name: toolshop-api
 
-    environment:
-      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
-      DB_PORT: 3306
-      DB_HOST: mariadb
-      host: localhost
-
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_started
 
     restart: unless-stopped
 
