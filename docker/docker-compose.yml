@@ -21,6 +21,30 @@ services:
       retries: 20
       start_period: 10s
 
+  db-init:
+    image: testsmith/practice-software-testing-${SPRINT}-api
+    container_name: toolshop-db-init
+
+    environment:
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+      DB_PORT: 3306
+      DB_HOST: mariadb
+      host: localhost
+
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+    entrypoint:
+      - php
+
+    command:
+      - artisan
+      - migrate:fresh
+      - --seed
+
+    restart: "no"
+
   laravel-api:
     image: testsmith/practice-software-testing-${SPRINT}-api
     container_name: toolshop-api
