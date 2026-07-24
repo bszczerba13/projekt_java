@@ -8,6 +8,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Creates and manages WebDriver instance.
@@ -94,9 +98,28 @@ public class DriverFactory {
      * @return initialized remote WebDriver instance
      */
     private static WebDriver createRemoteDriver() {
-        throw new UnsupportedOperationException(
-                "RemoteWebDriver is not implemented yet."
-        );
+
+        ChromeOptions options = new ChromeOptions();
+
+        if (TestConfiguration.isHeadless()) {
+            options.addArguments("--headless=new");
+            options.addArguments("--window-size=1920,1080");
+        }
+
+        try {
+            driver = new RemoteWebDriver(
+                    new URL(TestConfiguration.getSeleniumUrl()),
+                    options
+            );
+
+            return driver;
+
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException(
+                    "Invalid Selenium URL: " + TestConfiguration.getSeleniumUrl(),
+                    e
+            );
+        }
     }
 
     /**

@@ -77,4 +77,11 @@ public final class TestConfiguration {
         };
     }
 
+    public static String getSeleniumUrl() {
+        return System.getProperty(
+                "seleniumUrl",
+                "http://localhost:4444"
+        );
+    }
+
 }
