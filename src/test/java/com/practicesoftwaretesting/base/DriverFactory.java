@@ -23,6 +23,19 @@ public class DriverFactory {
      * @throws IllegalArgumentException if the configured browser is not supported
      */
     public static WebDriver getDriver() {
+        return switch (TestConfiguration.getEnvironment()) {
+            case LOCAL -> createLocalDriver();
+            case DOCKER -> createRemoteDriver();
+            case CI -> createRemoteDriver();
+        };
+    }
+
+    /**
+     * Creates a local WebDriver instance.
+     *
+     * @return initialized local WebDriver instance
+     */
+    private static WebDriver createLocalDriver() {
         String browser = TestConfiguration.getBrowser();
         boolean headless = TestConfiguration.isHeadless();
 
@@ -73,6 +86,17 @@ public class DriverFactory {
         }
 
         return driver;
+    }
+
+    /**
+     * Creates a remote WebDriver instance.
+     *
+     * @return initialized remote WebDriver instance
+     */
+    private static WebDriver createRemoteDriver() {
+        throw new UnsupportedOperationException(
+                "RemoteWebDriver is not implemented yet."
+        );
     }
 
     /**
