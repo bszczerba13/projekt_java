@@ -45,12 +45,25 @@ public final class TestConfiguration {
      * @return application base URL
      */
     public static String getBaseUrl() {
-        return System.getProperty(
-                "baseUrl",
-                "https://practicesoftwaretesting.com"
-        );
+
+        String baseUrl = System.getProperty("baseUrl");
+
+        if (baseUrl != null && !baseUrl.isBlank()) {
+            return baseUrl;
+        }
+
+        return switch (getEnvironment()) {
+            case LOCAL -> "https://practicesoftwaretesting.com";
+            case DOCKER -> "http://localhost:4200";
+            case CI -> "http://toolshop:4200";
+        };
     }
 
+    /**
+     * Returns the execution environment.
+     *
+     * @return configured execution environment
+     */
     public static Environment getEnvironment() {
         String environment = System.getProperty("environment", "local");
 
