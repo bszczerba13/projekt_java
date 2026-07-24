@@ -83,3 +83,15 @@ services:
       - laravel-api
 
     restart: unless-stopped
+
+  selenium:
+    image: selenium/standalone-chrome:4.44.0
+
+    container_name: selenium
+
+    ports:
+      - "4444:4444"
+
+    shm_size: "2gb"
+
+    restart: unless-stopped
