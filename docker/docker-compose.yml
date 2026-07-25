@@ -70,6 +70,9 @@ services:
     environment:
       __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS: angular-ui
 
+    volumes:
+      - ./config/environment.ts:/app/src/environments/environment.ts
+
     command: >
       bash -c "ng serve --host 0.0.0.0 --port 4200"
 

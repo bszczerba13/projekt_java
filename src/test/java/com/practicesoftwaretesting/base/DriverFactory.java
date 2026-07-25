@@ -101,9 +101,10 @@ public class DriverFactory {
 
         ChromeOptions options = new ChromeOptions();
 
+        options.addArguments("--window-size=1920,1080");
+
         if (TestConfiguration.isHeadless()) {
             options.addArguments("--headless=new");
-            options.addArguments("--window-size=1920,1080");
         }
 
         try {
