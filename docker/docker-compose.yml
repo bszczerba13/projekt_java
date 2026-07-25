@@ -67,6 +67,9 @@ services:
     ports:
       - "4200:4200"
 
+    environment:
+      __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS: angular-ui
+
     command: >
       bash -c "ng serve --host 0.0.0.0 --port 4200"
 
@@ -91,6 +94,7 @@ services:
 
     ports:
       - "4444:4444"
+      - "7900:7900"
 
     shm_size: "2gb"
 

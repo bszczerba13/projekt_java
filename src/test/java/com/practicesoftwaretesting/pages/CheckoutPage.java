@@ -77,6 +77,7 @@ public class CheckoutPage extends BasePage{
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
+        verifyPage();
     }
 
     public void goToGuestTab(){
@@ -198,7 +199,6 @@ public class CheckoutPage extends BasePage{
         enterText(orderState, state);
     }
 
-    @Override
     protected void verifyPage() {
         waitForVisibility(guestTab);
     }

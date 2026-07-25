@@ -27,7 +27,6 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
         this.quickWait = new WebDriverWait(driver, Duration.ofSeconds(QUICK_TIMEOUT));
         PageFactory.initElements(driver, this);
-        verifyPage();
     }
 
     /**
@@ -128,5 +127,11 @@ public class BasePage {
      */
     protected String getValue(WebElement element){
         return waitForVisibility(element).getAttribute("value");
+    }
+
+    protected List<WebElement> waitForVisibility(By locator) {
+        return wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(locator)
+        );
     }
 }

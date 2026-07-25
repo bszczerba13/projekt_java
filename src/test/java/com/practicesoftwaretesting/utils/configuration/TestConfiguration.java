@@ -54,7 +54,7 @@ public final class TestConfiguration {
 
         return switch (getEnvironment()) {
             case LOCAL -> "https://practicesoftwaretesting.com";
-            case DOCKER -> "http://localhost:4200";
+            case DOCKER -> "http://angular-ui:4200";
             case CI -> "http://toolshop:4200";
         };
     }

@@ -24,6 +24,7 @@ public class CartPage extends BasePage{
 
     public CartPage(WebDriver driver){
         super(driver);
+        verifyPage();
     }
 
     public String getCartProductName(){
@@ -49,7 +50,6 @@ public class CartPage extends BasePage{
         return new CheckoutPage(driver);
     }
 
-    @Override
     protected void verifyPage(){
         waitForVisibility(cartProductName);
     }

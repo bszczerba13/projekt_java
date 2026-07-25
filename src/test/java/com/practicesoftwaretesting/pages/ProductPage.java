@@ -21,6 +21,7 @@ public class ProductPage extends BasePage{
 
     public ProductPage(WebDriver driver) {
         super(driver);
+        verifyPage();
         header = new HeaderComponent(driver);
     }
 
@@ -37,7 +38,6 @@ public class ProductPage extends BasePage{
         return getText(productName);
     }
 
-    @Override
     protected void verifyPage(){
         waitForVisibility(addToCartButton);
     }

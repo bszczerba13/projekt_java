@@ -30,6 +30,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        verifyPage();
     }
 
     @Step("Enter email: {email}")
@@ -70,7 +71,6 @@ public class LoginPage extends BasePage {
         }
     }
 
-    @Override
     protected void verifyPage(){
         waitForVisibility(loginEmail);
     }

@@ -54,6 +54,7 @@ public class RegistrationPage extends BasePage{
 
     public RegistrationPage(WebDriver driver){
         super(driver);
+        verifyPage();
     }
 
     @Step("Enter first name: {userFirstName}")
@@ -141,7 +142,6 @@ public class RegistrationPage extends BasePage{
         return getText(missingEmailMessage);
     }
 
-    @Override
     protected void verifyPage(){
         waitForVisibility(firstName);
     }

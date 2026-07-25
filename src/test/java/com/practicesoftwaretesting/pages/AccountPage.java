@@ -10,13 +10,13 @@ public class AccountPage extends BasePage{
 
     public AccountPage(WebDriver driver){
         super(driver);
+        verifyPage();
     }
 
     public String getPageTitle(){
         return getText(pageTitle);
     }
 
-    @Override
     protected void verifyPage(){
         waitForVisibility(pageTitle);
     }

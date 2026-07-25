@@ -34,6 +34,9 @@ public class HomePage extends BasePage{
 
     private By sortingCompleted = By.cssSelector("[data-test='sorting_completed']");
 
+    private final By productCardsLocator =
+            By.cssSelector("a[data-test^='product-']");
+
     public FilterComponent filter;
     public HeaderComponent header;
 
@@ -41,6 +44,7 @@ public class HomePage extends BasePage{
         super(driver);
         filter = new FilterComponent(driver);
         header = new HeaderComponent(driver);
+        verifyPage();
     }
 
     /**
@@ -96,10 +100,9 @@ public class HomePage extends BasePage{
         throw new RuntimeException("No available products found");
     }
 
-    @Override
     protected void verifyPage(){
         waitForVisibility(sortList);
-        waitForVisibility(productCards);
+        waitForVisibility(productCardsLocator);
     }
 
 }
