@@ -1,7 +1,12 @@
 package com.practicesoftwaretesting.utils.allure;
 
+import com.practicesoftwaretesting.utils.configuration.TestConfiguration;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -30,14 +35,21 @@ public final class AllureEnvironment {
 
         Properties properties = new Properties();
 
-        properties.setProperty("Browser", "Chrome");
+        properties.setProperty("Environment", TestConfiguration.getEnvironment().name());
+        properties.setProperty("Browser", TestConfiguration.getBrowser());
+        properties.setProperty("Headless", String.valueOf(TestConfiguration.isHeadless()));
         properties.setProperty("Java", System.getProperty("java.version"));
         properties.setProperty("OS", System.getProperty("os.name"));
 
-        try (FileOutputStream output =
-                     new FileOutputStream("allure-results/environment.properties")) {
+        try {
+            Path allureDir = Paths.get("allure-results");
+            Files.createDirectories(allureDir);
 
-            properties.store(output, "Allure Environment");
+            try (FileOutputStream output =
+                         new FileOutputStream(allureDir.resolve("environment.properties").toFile())) {
+
+                properties.store(output, "Allure Environment");
+            }
 
         } catch (IOException e) {
             // Reporting must never affect test execution.
