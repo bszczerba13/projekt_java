@@ -23,6 +23,11 @@ jobs:
         working-directory: docker
         run: docker compose pull
 
+      - name: Inspect pulled web image
+        run: |
+          docker image inspect testsmith/practice-software-testing-web \
+            --format 'Architecture={{.Architecture}} OS={{.Os}}'
+
       - name: Start Docker environment
         working-directory: docker
         run: docker compose up -d --wait
