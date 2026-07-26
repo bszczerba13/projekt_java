@@ -35,6 +35,9 @@ jobs:
           docker version
           docker info
 
+      - name: Inspect Docker Hub manifest
+        run: docker buildx imagetools inspect testsmith/practice-software-testing-web
+
       - name: Start Docker environment
         working-directory: docker
         run: docker compose up -d --wait
