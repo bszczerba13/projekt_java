@@ -38,6 +38,12 @@ jobs:
       - name: Inspect Docker Hub manifest
         run: docker buildx imagetools inspect testsmith/practice-software-testing-web
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
       - name: Start Docker environment
         working-directory: docker
         run: docker compose up -d --wait

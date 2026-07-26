@@ -79,7 +79,6 @@ services:
     restart: unless-stopped
 
   web:
-    platform: linux/amd64
     image: testsmith/practice-software-testing-web
     container_name: toolshop-web
 
