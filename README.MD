@@ -1,170 +1,159 @@
-# Selenium UI Automation Framework (Java)
+# Selenium Test Automation Framework
 
-Test automation framework for an e-commerce demo application built with Java, Selenium WebDriver and TestNG using Page Object Model (POM).
+## About
+
+This project was originally created as part of a postgraduate software testing course and gradually evolved into a complete UI test automation framework.
+
+It demonstrates how to build a maintainable automation framework using Selenium WebDriver and TestNG, with support for Docker, Allure reporting, multiple execution environments and data-driven testing.
+
+The project focuses on clean architecture, readability and ease of use rather than demonstrating as many technologies as possible.
 
 ---
 
-## Tech Stack
+## Features
 
-- Java
-- Selenium WebDriver
-- TestNG
-- Maven
-- PageFactory
-- Faker
-- Allure Report
-- CSV DataProvider
+- Page Object Model (POM)
+- Reusable page components
+- Data-driven testing using CSV files
+- Test data generation with Java Faker
+- Local and Docker execution
+- Selenium Grid support
+- Multi-environment configuration
+- Allure reporting
+- Cross-browser execution (local: Chrome, Firefox and Edge)
+- Automatic environment reporting
+
+---
+
+## Technologies
+
+| Technology | Purpose |
+|------------|---------|
+| Java | Programming language |
+| Maven | Dependency management and test execution |
+| Selenium WebDriver | Browser automation |
+| TestNG | Test framework |
+| Docker & Docker Compose | Dockerized test environment |
+| MariaDB | Application database |
+| Allure Report | Test reporting |
 
 ---
 
 ## Project Structure
 
 ```text
-.
-├── src
-│   ├── main
-│   │   └── resources
-│   │
-│   └── test
-│       ├── java
-│       │   └── com
-│       │       └── practicesoftwaretesting
-│       │           ├── base
-│       │           │   ├── BaseTest.java
-│       │           │   └── DriverFactory.java
-│       │           │
-│       │           ├── data
-│       │           │   ├── DataGenerator.java
-│       │           │   ├── LoginDataProvider.java
-│       │           │   ├── RegistrationData.java
-│       │           │   ├── OrderData.java
-│       │           │   └── InvalidLoginData.java
-│       │           │
-│       │           ├── pages
-│       │           │   ├── components
-│       │           │   │   ├── FilterComponent.java
-│       │           │   │   └── HeaderComponent.java
-│       │           │   │
-│       │           │   ├── AccountPage.java
-│       │           │   ├── BasePage.java
-│       │           │   ├── CartPage.java
-│       │           │   ├── CheckoutPage.java
-│       │           │   ├── HomePage.java
-│       │           │   ├── LoginPage.java
-│       │           │   ├── ProductPage.java
-│       │           │   └── RegistrationPage.java
-│       │           │
-│       │           ├── tests
-│       │           │   ├── CartTest.java
-│       │           │   ├── CheckoutTest.java
-│       │           │   ├── FilteringTest.java
-│       │           │   ├── LoginTest.java
-│       │           │   ├── RegistrationTest.java
-│       │           │   └── SortingTest.java
-│       │           │
-│       │           └── utils
-│       │               ├── allure
-│       │               │   ├── AllureAttachments.java
-│       │               │   └── AllureEnvironment.java
-│       │               │
-│       │               ├── Constants.java
-│       │               └── CsvReader.java
-│       │
-│       └── resources
-│           └── users.csv
-│
-├── allure-results
-├── testng.xml
-├── pom.xml
+project/
+├── docker/              Docker environment and configuration
+├── src/
+│   ├── test/
+│   │   ├── base/        Base classes and WebDriver management
+│   │   ├── data/        Test data
+│   │   ├── pages/       Page Object Model implementation
+│   │   ├── tests/       Test classes
+│   │   └── utils/       Configuration and utility classes
+├── pom.xml              Maven configuration
+├── testng.xml           TestNG suite configuration
 └── README.md
 ```
 
 ---
 
-## Test Coverage
+## Covered Features
 
-Implemented automated UI tests for:
+The framework currently automates the following user workflows:
 
-- Login (positive and negative scenarios)
-- User registration (positive and negative scenarios)
-- Product sorting
+- User authentication
+- User registration
 - Product filtering
-- Shopping cart operations
-- Guest checkout flow
+- Product sorting
+- Shopping cart management
+- Checkout process
 
 ---
 
-## Framework Features
+## Getting Started
 
-- Page Object Model (POM)
-- Page Components pattern (Header and Filter components)
-- DriverFactory for browser management
-- BasePage with reusable Selenium helper methods
-- Dynamic test data generation using Faker
-- Data-driven testing with TestNG DataProvider and CSV
-- Shared project constants
-- Explicit waits with Selenium ExpectedConditions
-  Allure reporting with automatic diagnostic attachments
-  Automatic environment information for test execution
+**Requirements:** Java 21, Maven and optionally Docker Desktop for Docker execution.
 
----
-
-## Installation
-
-Clone repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/bszczerba13/projekt_java.git
 cd projekt_java
 ```
 
----
+### Local execution
 
-## Running Tests
-
-Run all tests:
+Run all tests using the default local environment:
 
 ```bash
-mvn test
+mvn clean test
 ```
 
-Generate and open the Allure report:
+### Docker execution
+
+Start the required Docker services:
+
+```bash
+docker compose up -d
+```
+
+Run the test suite against the Docker environment:
+
+```bash
+mvn clean test -Denvironment=docker
+```
+
+---
+
+## Allure Report
+
+### Local
+
+Generate and open the report:
 
 ```bash
 allure serve allure-results
+```
+
+### Docker
+
+Start the Allure service:
+
+```bash
+docker compose --profile report up -d
+```
+
+The report is available at:
+
+```text
+http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html
 ```
 
 ---
 
 ## Test Configuration
 
-Framework supports browser and environment configuration through TestNG parameters:
+### Environment
 
-```xml
-<parameter name="browser" value="chrome"/>
-<parameter name="baseUrl"
-           value="https://practicesoftwaretesting.com"/>
-```
+| Environment | Command |
+|------------|---------|
+| Local (default) | `mvn clean test` |
+| Docker | `mvn clean test -Denvironment=docker` |
 
----
+### Browser
 
-## Reporting
-
-The framework uses Allure Report to provide detailed test execution reports.
-
-For failed tests, the report automatically includes:
-
-- Screenshot (PNG)
-- Current browser URL
-
-Additionally, each report contains environment information:
-
-- Browser
-- Java version
-- Operating System
+| Browser | Command |
+|---------|---------|
+| Chrome (default) | `mvn clean test` |
+| Firefox | `mvn clean test -Dbrowser=firefox` |
+| Edge | `mvn clean test -Dbrowser=edge` |
 
 ---
 
-## Notes
+## Test Data
 
-This project was created for learning purposes and as part of postgraduate studies focused on test automation.
+The framework uses both static and dynamically generated test data.
+
+- `users.csv` for predefined login credentials.
+- Java Faker for dynamically generated registration data.
