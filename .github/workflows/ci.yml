@@ -33,6 +33,11 @@ jobs:
           name: allure-results
           path: allure-results
 
+      - name: Show Docker logs
+        if: always()
+        working-directory: docker
+        run: docker compose logs
+
       - name: Stop Docker environment
         if: always()
         working-directory: docker
