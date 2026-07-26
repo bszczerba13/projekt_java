@@ -33,10 +33,15 @@ jobs:
           name: allure-results
           path: allure-results
 
-      - name: Show Docker logs
+      - name: Show container status
         if: always()
         working-directory: docker
-        run: docker compose logs
+        run: docker compose ps -a
+
+      - name: Show web container logs
+        if: always()
+        working-directory: docker
+        run: docker compose logs web
 
       - name: Stop Docker environment
         if: always()
