@@ -19,8 +19,12 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: Start Docker environment
+        working-directory: docker
+        run: docker compose up -d --wait
+
       - name: Run tests
-        run: mvn clean test -Dheadless=true
+        run: mvn clean test -Denvironment=docker
 
       - name: Upload Allure results
         if: always()
@@ -28,3 +32,8 @@ jobs:
         with:
           name: allure-results
           path: allure-results
+
+      - name: Stop Docker environment
+        if: always()
+        working-directory: docker
+        run: docker compose down
