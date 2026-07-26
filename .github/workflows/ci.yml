@@ -27,6 +27,13 @@ jobs:
         run: |
           docker image inspect testsmith/practice-software-testing-web \
             --format 'Architecture={{.Architecture}} OS={{.Os}}'
+          
+      - name: Show runner architecture
+        run: |
+          uname -m
+          arch
+          docker version
+          docker info
 
       - name: Start Docker environment
         working-directory: docker
