@@ -19,9 +19,16 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: Pull Docker images
+        working-directory: docker
+        run: docker compose pull
+
       - name: Start Docker environment
         working-directory: docker
         run: docker compose up -d --wait
+
+      - name: Inspect web image
+        run: docker inspect toolshop-web
 
       - name: Run tests
         run: mvn clean test -Denvironment=docker
