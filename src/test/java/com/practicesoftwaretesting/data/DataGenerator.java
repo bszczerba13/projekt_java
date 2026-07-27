@@ -1,6 +1,7 @@
 package com.practicesoftwaretesting.data;
 
 import com.github.javafaker.Faker;
+import com.practicesoftwaretesting.utils.PasswordGenerator;
 
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +39,7 @@ public class DataGenerator {
         data.houseNumber = String.valueOf(faker.number().numberBetween(1,100));
         data.phoneNumber = faker.numerify("#########");
         data.email = faker.internet().emailAddress();
-        data.password = faker.internet().password(10,11,true,true,true);
+        data.password = PasswordGenerator.generatePassword();
         data.street = faker.address().streetName();
         data.city = faker.address().cityName();
         data.state = faker.address().state();
