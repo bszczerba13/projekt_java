@@ -48,14 +48,22 @@ cleanup() {
     fi
 
     echo
-    echo "To view the Allure report run:"
-    echo
-    echo "allure serve allure-results"
-    echo
-    echo "or"
-    echo
-    echo "allure generate allure-results --clean"
-    echo "allure open allure-report"
+    if command -v allure >/dev/null 2>&1
+    then
+        echo "To view the Allure report run:"
+        echo
+        echo "allure serve allure-results"
+        echo
+        echo "or"
+        echo
+        echo "allure generate allure-results --clean"
+        echo "allure open allure-report"
+
+    else
+        echo "Allure CLI is not installed."
+        echo "Install Allure CLI to view the generated report."
+    fi
+
     echo
     echo "========================================"
 

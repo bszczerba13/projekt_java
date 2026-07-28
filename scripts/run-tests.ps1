@@ -94,17 +94,27 @@ finally {
         Write-Host "Finished with errors."
     }
 
-    Write-Host
-    Write-Host "To view the Allure report run:"
-    Write-Host
-    Write-Host "allure serve allure-results"
-    Write-Host
-    Write-Host "or"
-    Write-Host
-    Write-Host "allure generate allure-results --clean"
-    Write-Host "allure open allure-report"
+    if (Get-Command allure -ErrorAction SilentlyContinue) {
+
+        Write-Host
+        Write-Host "To view the Allure report run:"
+        Write-Host
+        Write-Host "allure serve allure-results"
+        Write-Host
+        Write-Host "or"
+        Write-Host
+        Write-Host "allure generate allure-results --clean"
+        Write-Host "allure open allure-report"
+    }
+    else {
+
+        Write-Host "Allure CLI is not installed."
+        Write-Host "Install Allure CLI to view the generated report."
+
+    }
     Write-Host
     Write-Host "========================================"
+
 }
 
 exit $exitCode
