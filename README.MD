@@ -15,13 +15,14 @@ The project focuses on clean architecture, readability and ease of use rather th
 - Page Object Model (POM)
 - Reusable page components
 - Data-driven testing using CSV files
-- Test data generation with Java Faker
+- Dynamic test data generation
 - Local and Docker execution
 - Selenium Grid support
 - Multi-environment configuration
+- Local cross-browser execution (Chrome, Firefox and Edge)
 - Allure reporting
-- Cross-browser execution (local: Chrome, Firefox and Edge)
-- Automatic environment reporting
+- GitHub Actions CI pipeline
+- PowerShell and Bash helper scripts
 
 ---
 
@@ -34,8 +35,9 @@ The project focuses on clean architecture, readability and ease of use rather th
 | Selenium WebDriver | Browser automation |
 | TestNG | Test framework |
 | Docker & Docker Compose | Dockerized test environment |
-| MariaDB | Application database |
 | Allure Report | Test reporting |
+| GitHub Actions | Continuous Integration |
+| PowerShell / Bash | Helper scripts |
 
 ---
 
@@ -44,6 +46,7 @@ The project focuses on clean architecture, readability and ease of use rather th
 ```text
 project/
 ├── docker/              Docker environment and configuration
+├── scripts/             Helper scripts
 ├── src/
 │   ├── test/
 │   │   ├── base/        Base classes and WebDriver management
@@ -58,7 +61,7 @@ project/
 
 ---
 
-## Covered Features
+## Implemented Test Scenarios
 
 The framework currently automates the following user workflows:
 
@@ -71,11 +74,22 @@ The framework currently automates the following user workflows:
 
 ---
 
-## Getting Started
+## Running Tests
 
-**Requirements:** Java 21, Maven and optionally Docker Desktop for Docker execution.
+### Requirements
 
-Clone the repository:
+#### Required
+
+- Java 21+
+- Maven
+- Git
+
+#### Optional
+
+- Docker Desktop / Docker Engine (required for Docker execution)
+- Allure CLI (required only to view test reports)
+
+### Clone the repository
 
 ```bash
 git clone https://github.com/bszczerba13/projekt_java.git
@@ -84,10 +98,30 @@ cd projekt_java
 
 ### Local execution
 
-Run all tests using the default local environment:
+Run all tests using the default local configuration:
 
 ```bash
 mvn clean test
+```
+
+### Helper scripts (recommended)
+
+The helper scripts provide the easiest way to run the framework. They automatically:
+
+- start and stop the Docker environment,
+- collect execution logs,
+- display Allure report instructions.
+
+**Windows**
+
+```powershell
+.\scripts\run-tests.ps1
+```
+
+**Linux / macOS**
+
+```bash
+./scripts/run-tests.sh
 ```
 
 ### Docker execution
@@ -95,7 +129,7 @@ mvn clean test
 Start the required Docker services:
 
 ```bash
-docker compose up -d
+docker compose -f docker/docker-compose.yml up -d
 ```
 
 Run the test suite against the Docker environment:
@@ -104,31 +138,30 @@ Run the test suite against the Docker environment:
 mvn clean test -Denvironment=docker
 ```
 
+Stop the Docker services:
+
+```bash
+docker compose -f docker/docker-compose.yml down
+```
+
 ---
 
 ## Allure Report
 
-### Local
-
-Generate and open the report:
+To view the generated report:
 
 ```bash
 allure serve allure-results
 ```
 
-### Docker
-
-Start the Allure service:
+or
 
 ```bash
-docker compose --profile report up -d
+allure generate allure-results --clean
+allure open allure-report
 ```
 
-The report is available at:
-
-```text
-http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html
-```
+If Allure CLI is not installed, the provided helper scripts will display an appropriate message.
 
 ---
 
@@ -149,6 +182,26 @@ http://localhost:5050/allure-docker-service/projects/default/reports/latest/inde
 | Firefox | `mvn clean test -Dbrowser=firefox` |
 | Edge | `mvn clean test -Dbrowser=edge` |
 
+### Headless execution
+
+Local execution uses a visible browser.
+
+The CI pipeline automatically runs tests in headless mode by passing:
+
+```text
+-Dheadless=true
+```
+
+---
+
+## Logs
+
+When using the provided helper scripts, execution logs are automatically saved to the `logs` directory.
+
+- `docker-up.log`
+- `docker-down.log`
+- `test-run.log`
+
 ---
 
 ## Test Data
@@ -156,4 +209,4 @@ http://localhost:5050/allure-docker-service/projects/default/reports/latest/inde
 The framework uses both static and dynamically generated test data.
 
 - `users.csv` for predefined login credentials.
-- Java Faker for dynamically generated registration data.
+- Java Faker and custom utilities for dynamically generated registration data.
