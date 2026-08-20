@@ -90,17 +90,37 @@ services:
 
     restart: unless-stopped
 
-  selenium:
+  selenium-chrome:
     image: selenium/standalone-chrome:4.44.0
-
-    container_name: selenium
+    container_name: selenium-chrome
 
     ports:
       - "4444:4444"
       - "7900:7900"
 
     shm_size: "2gb"
+    restart: unless-stopped
 
+  selenium-firefox:
+    image: selenium/standalone-firefox:4.44.0
+    container_name: selenium-firefox
+
+    ports:
+      - "4445:4444"
+      - "7901:7900"
+
+    shm_size: "2gb"
+    restart: unless-stopped
+
+  selenium-edge:
+    image: selenium/standalone-edge:4.44.0
+    container_name: selenium-edge
+
+    ports:
+      - "4446:4444"
+      - "7902:7900"
+
+    shm_size: "2gb"
     restart: unless-stopped
 
   allure:

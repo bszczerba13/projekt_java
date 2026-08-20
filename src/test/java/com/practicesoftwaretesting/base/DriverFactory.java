@@ -34,6 +34,43 @@ public class DriverFactory {
         };
     }
 
+    private static ChromeOptions createChromeOptions(boolean headless) {
+        ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--window-size=1920,1080");
+
+        if (headless) {
+            options.addArguments("--headless=new");
+        }
+
+        return options;
+    }
+
+    private static FirefoxOptions createFirefoxOptions(boolean headless) {
+        FirefoxOptions options = new FirefoxOptions();
+
+        options.addArguments("--width=1920");
+        options.addArguments("--height=1080");
+
+        if (headless) {
+            options.addArguments("--headless");
+        }
+
+        return options;
+    }
+
+    private static EdgeOptions createEdgeOptions(boolean headless) {
+        EdgeOptions options = new EdgeOptions();
+
+        options.addArguments("--window-size=1920,1080");
+
+        if (headless) {
+            options.addArguments("--headless=new");
+        }
+
+        return options;
+    }
+
     /**
      * Creates a local WebDriver instance.
      *
@@ -44,45 +81,14 @@ public class DriverFactory {
         boolean headless = TestConfiguration.isHeadless();
 
         if ("chrome".equalsIgnoreCase(browser)) {
-            ChromeOptions options = new ChromeOptions();
-
-            if (headless) {
-                options.addArguments("--headless=new");
-                options.addArguments("--window-size=1920,1080");
-            } else {
-                options.addArguments("start-maximized");
-            }
-
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver(createChromeOptions(headless));
 
         } else if ("firefox".equalsIgnoreCase(browser)) {
-            FirefoxOptions options = new FirefoxOptions();
-
-            if (headless) {
-                options.addArguments("--headless");
-                options.addArguments("--width=1920");
-                options.addArguments("--height=1080");
-            }
-
-            driver = new FirefoxDriver(options);
-
-            if (!headless) {
-                driver.manage().window().maximize();
-            }
+            driver = new FirefoxDriver(createFirefoxOptions(headless));
 
         } else if ("edge".equalsIgnoreCase(browser)) {
-            EdgeOptions options = new EdgeOptions();
+            driver = new EdgeDriver(createEdgeOptions(headless));
 
-            if (headless) {
-                options.addArguments("--headless=new");
-                options.addArguments("--window-size=1920,1080");
-            }
-
-            driver = new EdgeDriver(options);
-
-            if (!headless) {
-                driver.manage().window().maximize();
-            }
         } else {
             throw new IllegalArgumentException(
                     "Unsupported browser: " + browser + ". Supported browsers: chrome, firefox, edge."
@@ -98,26 +104,37 @@ public class DriverFactory {
      * @return initialized remote WebDriver instance
      */
     private static WebDriver createRemoteDriver() {
-
-        ChromeOptions options = new ChromeOptions();
-
-        options.addArguments("--window-size=1920,1080");
-
-        if (TestConfiguration.isHeadless()) {
-            options.addArguments("--headless=new");
-        }
+        String browser = TestConfiguration.getBrowser();
+        boolean headless = TestConfiguration.isHeadless();
 
         try {
-            driver = new RemoteWebDriver(
-                    new URL(TestConfiguration.getSeleniumUrl()),
-                    options
-            );
+            switch (browser.toLowerCase()) {
+                case "chrome" -> driver =  new RemoteWebDriver(
+                        new URL("http://localhost:4444"),
+                        createChromeOptions(headless)
+                );
+
+                case "firefox" -> driver = new RemoteWebDriver(
+                        new URL("http://localhost:4445"),
+                        createFirefoxOptions(headless)
+                );
+
+                case "edge" -> driver = new RemoteWebDriver(
+                        new URL("http://localhost:4446"),
+                        createEdgeOptions(headless)
+                );
+
+                default -> throw new IllegalArgumentException(
+                        "Unsupported browser: " + browser
+                                + ". Supported browsers: chrome, firefox, edge."
+                );
+            };
 
             return driver;
 
         } catch (MalformedURLException e) {
             throw new IllegalStateException(
-                    "Invalid Selenium URL: " + TestConfiguration.getSeleniumUrl(),
+                    "Invalid Selenium URL for browser: " + browser,
                     e
             );
         }
