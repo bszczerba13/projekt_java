@@ -48,7 +48,7 @@ cleanup() {
     fi
 
     echo
-    if command -v allure >/dev/null 2>&1
+    if [ "$DOCKER_STARTED" = true ] && command -v allure >/dev/null 2>&1
     then
         echo "To view the Allure report run:"
         echo
@@ -59,7 +59,8 @@ cleanup() {
         echo "allure generate allure-results --clean"
         echo "allure open allure-report"
 
-    else
+    elif [ "$DOCKER_STARTED" = true ]
+    then
         echo "Allure CLI is not installed."
         echo "Install Allure CLI to view the generated report."
     fi
@@ -76,6 +77,20 @@ echo "========================================"
 echo "Practice Software Testing"
 echo "UI Test Runner"
 echo "========================================"
+echo
+
+echo "Checking Docker..."
+echo
+
+if ! docker info >/dev/null 2>&1; then
+    echo "Docker is not running."
+    echo "Please start Docker Desktop before running the tests."
+    echo
+
+    exit 1
+fi
+
+echo "Docker is running."
 echo
 
 echo "[1/3] Starting Docker environment..."
@@ -103,7 +118,7 @@ echo
 
 START_TIME=$(date +%s)
 
-mvn clean test --batch-mode --no-transfer-progress \
+mvn clean test --batch-mode --no-transfer-progress "$@" \
     >"$MAVEN_LOG" 2>&1
 
 EXIT_CODE=$?

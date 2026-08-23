@@ -1,3 +1,8 @@
+param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [string[]]$MavenArgs
+)
+
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $composeFile = Join-Path $projectRoot "docker\docker-compose.yml"
 
@@ -27,6 +32,23 @@ $dockerStarted = $false
 
 try {
 
+    Write-Host "Checking Docker..."
+    Write-Host
+
+    docker info *> $null
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Docker is not running."
+        Write-Host "Please start Docker Desktop before running the tests."
+        Write-Host
+
+        $exitCode = 1
+        return
+    }
+
+    Write-Host "Docker is running."
+    Write-Host
+
     Write-Host "[1/3] Starting Docker environment..."
     Write-Host
 
@@ -52,7 +74,7 @@ try {
 
     $startTime = Get-Date
 
-    mvn clean test --batch-mode --no-transfer-progress *> $mavenLog
+    mvn clean test --batch-mode --no-transfer-progress @MavenArgs *> $mavenLog
 
     $exitCode = $LASTEXITCODE
 
@@ -94,7 +116,7 @@ finally {
         Write-Host "Finished with errors."
     }
 
-    if (Get-Command allure -ErrorAction SilentlyContinue) {
+    if ($dockerStarted -and (Get-Command allure -ErrorAction SilentlyContinue)) {
 
         Write-Host
         Write-Host "To view the Allure report run:"
@@ -106,11 +128,10 @@ finally {
         Write-Host "allure generate allure-results --clean"
         Write-Host "allure open allure-report"
     }
-    else {
+    elseif ($dockerStarted) {
 
         Write-Host "Allure CLI is not installed."
         Write-Host "Install Allure CLI to view the generated report."
-
     }
     Write-Host
     Write-Host "========================================"

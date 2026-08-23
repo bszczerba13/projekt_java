@@ -2,29 +2,36 @@
 
 ## About
 
-This project was originally created as part of a postgraduate software testing course and gradually evolved into a complete UI test automation framework.
+This project was originally created as part of a postgraduate software
+testing course and gradually evolved into a complete UI test automation
+framework.
 
-It demonstrates how to build a maintainable automation framework using Selenium WebDriver and TestNG, with support for Docker, Allure reporting, multiple execution environments and data-driven testing.
+It demonstrates how to build a maintainable automation framework using
+Selenium WebDriver and TestNG, with support for Docker, Allure
+reporting, multiple execution environments and data-driven testing.
 
-The project focuses on clean architecture, readability and ease of use rather than demonstrating as many technologies as possible.
+The project focuses on clean architecture, readability and ease of use
+rather than demonstrating as many technologies as possible.
 
----
+------------------------------------------------------------------------
 
 ## Features
 
-- Page Object Model (POM)
-- Reusable page components
-- Data-driven testing using CSV files
-- Dynamic test data generation
-- Local and Docker execution
-- Selenium Grid support
-- Multi-environment configuration
-- Local cross-browser execution (Chrome, Firefox and Edge)
-- Allure reporting
-- GitHub Actions CI pipeline
-- PowerShell and Bash helper scripts
+-   Page Object Model (POM)
+-   Reusable page components
+-   Data-driven testing using CSV files
+-   Dynamic test data generation
+-   Local and Docker execution
+-   Selenium Grid support
+-   Multi-environment configuration
+-   Local cross-browser execution (Chrome, Firefox and Edge)
+-   Docker cross-browser execution (Chrome, Firefox and Edge)
+-   Automatic test retry (one retry per failed test)
+-   Allure reporting
+-   GitHub Actions CI pipeline
+-   PowerShell and Bash helper scripts
 
----
+------------------------------------------------------------------------
 
 ## Technologies
 
@@ -39,11 +46,11 @@ The project focuses on clean architecture, readability and ease of use rather th
 | GitHub Actions | Continuous Integration |
 | PowerShell / Bash | Helper scripts |
 
----
+------------------------------------------------------------------------
 
 ## Project Structure
 
-```text
+``` text
 project/
 ├── docker/              Docker environment and configuration
 ├── scripts/             Helper scripts
@@ -59,90 +66,113 @@ project/
 └── README.md
 ```
 
----
+------------------------------------------------------------------------
 
 ## Implemented Test Scenarios
 
 The framework currently automates the following user workflows:
 
-- User authentication
-- User registration
-- Product filtering
-- Product sorting
-- Shopping cart management
-- Checkout process
+-   User authentication
+-   User registration
+-   Product filtering
+-   Product sorting
+-   Shopping cart management
+-   Checkout process
+
+------------------------------------------------------------------------
+
+## Installation
+
+Clone the repository:
+
+    git clone https://github.com/bszczerba13/projekt_java.git
+
+Go to the project directory:
+
+    cd projekt_java
 
 ---
 
 ## Running Tests
 
-### Requirements
+The framework supports three execution methods:
 
-#### Required
+1. Local execution
+2. Docker Compose
+3. Helper scripts
 
-- Java 21+
-- Maven
-- Git
+Chrome is used as the default browser. Firefox and Edge can be selected when needed.
 
-#### Optional
+---
 
-- Docker Desktop / Docker Engine (required for Docker execution)
-- Allure CLI (required only to view test reports)
+### 1. Local execution
 
-### Clone the repository
+Run the tests locally with Maven:
 
-```bash
-git clone https://github.com/bszczerba13/projekt_java.git
-cd projekt_java
-```
+    mvn clean test
 
-### Local execution
+#### Browser selection
 
-Run all tests using the default local configuration:
+Chrome is used by default. To run tests with another browser, use the `browser` Maven property.
 
-```bash
-mvn clean test
-```
+| Browser | Command |
+|---|---|
+| Chrome | `mvn clean test` |
+| Firefox | `mvn clean test -Dbrowser=firefox` |
+| Edge | `mvn clean test -Dbrowser=edge` |
 
-### Helper scripts (recommended)
+Headless execution can be enabled with the `headless` Maven property:
 
-The helper scripts provide the easiest way to run the framework. They automatically:
+    mvn clean test -Dheadless=true
 
-- start and stop the Docker environment,
-- collect execution logs,
-- display Allure report instructions.
+---
 
-**Windows**
+### 2. Docker Compose
 
-```powershell
-.\scripts\run-tests.ps1
-```
+#### Prerequisites
 
-**Linux / macOS**
+- Docker Desktop (Windows) or Docker Engine (Linux / macOS)
+- Docker Compose
 
-```bash
-./scripts/run-tests.sh
-```
+Docker Desktop / Docker Engine must be running before starting the Docker environment.
 
-### Docker execution
+#### Run tests
 
-Start the required Docker services:
+Chrome is used by default. Firefox and Edge can be selected with the `browser` Maven property.
 
-```bash
-docker compose -f docker/docker-compose.yml up -d
-```
+| Browser | Command |
+|---|---|
+| Chrome | `docker compose -f docker/docker-compose.yml up -d`<br>`mvn clean test` |
+| Firefox | `docker compose -f docker/docker-compose.yml up -d`<br>`mvn clean test -Dbrowser=firefox` |
+| Edge | `docker compose -f docker/docker-compose.yml up -d`<br>`mvn clean test -Dbrowser=edge` |
 
-Run the test suite against the Docker environment:
+After the execution completes, stop and remove all containers:
 
-```bash
-mvn clean test -Denvironment=docker
-```
+    docker compose -f docker/docker-compose.yml down
 
-Stop the Docker services:
+---
 
-```bash
-docker compose -f docker/docker-compose.yml down
-```
+### 3. Helper scripts (Recommended)
+
+The helper scripts provide the easiest way to run the complete Docker test workflow.
+
+They automatically:
+
+- Start the Docker environment
+- Execute the complete test suite
+- Generate Allure results
+- Stop the Docker environment
+- Save logs for every execution step
+
+Chrome is used by default. Firefox and Edge can be selected using the commands below.
+
+| Browser | Windows | Linux / macOS |
+|---|---|---|
+| Chrome | `.\scripts\run-tests.ps1` | `./scripts/run-tests.sh` |
+| Firefox | `.\scripts\run-tests.ps1 -Dbrowser=firefox` | `./scripts/run-tests.sh -Dbrowser=firefox` |
+| Edge | `.\scripts\run-tests.ps1 -Dbrowser=edge` | `./scripts/run-tests.sh -Dbrowser=edge` |
+
+Headless execution can be enabled by adding `-Dheadless=true`.
 
 ---
 
@@ -150,63 +180,37 @@ docker compose -f docker/docker-compose.yml down
 
 To view the generated report:
 
-```bash
+``` bash
 allure serve allure-results
 ```
 
 or
 
-```bash
+``` bash
 allure generate allure-results --clean
 allure open allure-report
 ```
 
-If Allure CLI is not installed, the provided helper scripts will display an appropriate message.
+If Allure CLI is not installed, the provided helper scripts will display
+an appropriate message.
 
----
-
-## Test Configuration
-
-### Environment
-
-| Environment | Command |
-|------------|---------|
-| Local (default) | `mvn clean test` |
-| Docker | `mvn clean test -Denvironment=docker` |
-
-### Browser
-
-| Browser | Command |
-|---------|---------|
-| Chrome (default) | `mvn clean test` |
-| Firefox | `mvn clean test -Dbrowser=firefox` |
-| Edge | `mvn clean test -Dbrowser=edge` |
-
-### Headless execution
-
-Local execution uses a visible browser.
-
-The CI pipeline automatically runs tests in headless mode by passing:
-
-```text
--Dheadless=true
-```
-
----
+------------------------------------------------------------------------
 
 ## Logs
 
-When using the provided helper scripts, execution logs are automatically saved to the `logs` directory.
+When using the provided helper scripts, execution logs are automatically
+saved to the `logs` directory.
 
-- `docker-up.log`
-- `docker-down.log`
-- `test-run.log`
+-   `docker-up.log`
+-   `docker-down.log`
+-   `test-run.log`
 
----
+------------------------------------------------------------------------
 
 ## Test Data
 
 The framework uses both static and dynamically generated test data.
 
-- `users.csv` for predefined login credentials.
-- Java Faker and custom utilities for dynamically generated registration data.
+-   `users.csv` for predefined login credentials.
+-   Java Faker and custom utilities for dynamically generated
+    registration data.
