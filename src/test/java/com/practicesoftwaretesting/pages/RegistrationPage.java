@@ -46,9 +46,6 @@ public class RegistrationPage extends BasePage{
     @FindBy (css = "[data-test='register-submit']")
     private WebElement registerButton;
 
-    @FindBy (css = "[data-test='postcode-lookup-loading']")
-    private WebElement autofillLoader;
-
     @FindBy (css = "[data-test='email-error']")
     private WebElement missingEmailMessage;
 
@@ -134,8 +131,10 @@ public class RegistrationPage extends BasePage{
         click(registerButton);
     }
 
-    public void waitForAutofillLoader(){
-        waitForInvisibility(autofillLoader);
+    public void waitForAutofill(){
+        waitForValue(street);
+        waitForValue(city);
+        waitForValue(state);
     }
 
     public String getMissingEmailMessage(){

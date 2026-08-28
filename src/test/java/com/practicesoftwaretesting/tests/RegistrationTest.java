@@ -35,7 +35,7 @@ public class RegistrationTest extends BaseTest {
         registrationPage.selectCountry();
         registrationPage.enterPostalCode(data.postalCode);
         registrationPage.enterHouseNumber(data.houseNumber);
-        registrationPage.waitForAutofillLoader();
+        registrationPage.waitForAutofill();
         registrationPage.enterPhone(data.phoneNumber);
         registrationPage.enterEmail(data.email);
         registrationPage.enterPassword(data.password);
@@ -62,7 +62,7 @@ public class RegistrationTest extends BaseTest {
         registrationPage.selectCountry();
         registrationPage.enterPostalCode(data.postalCode);
         registrationPage.enterHouseNumber(data.houseNumber);
-        registrationPage.waitForAutofillLoader();
+        registrationPage.waitForAutofill();
         registrationPage.enterPhone(data.phoneNumber);
         registrationPage.enterPassword(data.password);
         if (registrationPage.getStreetValue().isEmpty()){

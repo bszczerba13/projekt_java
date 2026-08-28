@@ -134,4 +134,13 @@ public class BasePage {
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(locator)
         );
     }
+
+    /**
+     * Waits until the input field contains a value.
+     *
+     * @param element input field
+     */
+    protected void waitForValue(WebElement element) {
+        quickWait.until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
+    }
 }

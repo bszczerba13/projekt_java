@@ -45,9 +45,6 @@ public class CheckoutPage extends BasePage{
     @FindBy (css = "[data-test='house_number']")
     private WebElement orderHouseNumber;
 
-    @FindBy (css = "[data-test='postcode-lookup-loading']")
-    private WebElement autofillLoader;
-
     @FindBy (css = "[data-test='proceed-3']")
     private WebElement proceedToCheckoutButtonBillingAddressStep;
 
@@ -172,19 +169,21 @@ public class CheckoutPage extends BasePage{
     }
 
     public String getOrderStreet(){
-        return getText(orderStreet);
+        return getValue(orderStreet);
     }
 
     public String getOrderCity(){
-        return getText(orderCity);
+        return getValue(orderCity);
     }
 
     public String getOrderState(){
-        return getText(orderState);
+        return getValue(orderState);
     }
 
     public void waitForAutofill(){
-        waitForInvisibility(autofillLoader);
+        waitForValue(orderStreet);
+        waitForValue(orderCity);
+        waitForValue(orderState);
     }
 
     public void enterStreet(String street){
