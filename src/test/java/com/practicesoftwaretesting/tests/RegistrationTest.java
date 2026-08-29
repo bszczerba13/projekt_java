@@ -6,6 +6,7 @@ import com.practicesoftwaretesting.data.RegistrationData;
 import com.practicesoftwaretesting.pages.LoginPage;
 import com.practicesoftwaretesting.pages.RegistrationPage;
 import io.qameta.allure.*;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -35,10 +36,14 @@ public class RegistrationTest extends BaseTest {
         registrationPage.selectCountry();
         registrationPage.enterPostalCode(data.postalCode);
         registrationPage.enterHouseNumber(data.houseNumber);
-        registrationPage.waitForAutofill();
         registrationPage.enterPhone(data.phoneNumber);
         registrationPage.enterEmail(data.email);
         registrationPage.enterPassword(data.password);
+        try {
+            registrationPage.waitForAutofill();
+        } catch (TimeoutException e) {
+            // Autofill did not fill all fields, fill missing fields manually.
+        }
         if (registrationPage.getStreetValue().isEmpty()){
             registrationPage.enterStreet(data.street);
         }
@@ -62,9 +67,13 @@ public class RegistrationTest extends BaseTest {
         registrationPage.selectCountry();
         registrationPage.enterPostalCode(data.postalCode);
         registrationPage.enterHouseNumber(data.houseNumber);
-        registrationPage.waitForAutofill();
         registrationPage.enterPhone(data.phoneNumber);
         registrationPage.enterPassword(data.password);
+        try {
+            registrationPage.waitForAutofill();
+        } catch (TimeoutException e) {
+            // Autofill did not fill all fields, fill missing fields manually.
+        }
         if (registrationPage.getStreetValue().isEmpty()){
             registrationPage.enterStreet(data.street);
         }
