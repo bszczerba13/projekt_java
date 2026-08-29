@@ -1,12 +1,17 @@
 name: UI Tests
+
 on:
   push:
   pull_request:
 
 jobs:
   ui-tests:
-    name: Run tests
+    name: Run tests - ${{ matrix.browser }}
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [chrome, firefox, edge]
 
     steps:
       - name: Checkout repository
@@ -30,13 +35,13 @@ jobs:
         run: docker compose up -d --wait
 
       - name: Run tests
-        run: mvn clean test -Denvironment=docker -Dheadless=true
+        run: mvn clean test -Denvironment=docker -Dheadless=true -Dbrowser=${{ matrix.browser }}
 
       - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v5
         with:
-          name: allure-results
+          name: allure-results-${{ matrix.browser }}
           path: allure-results
 
       - name: Stop Docker environment
